@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"os"
 	"strconv"
+	"strings"
 )
 
 const MAX_LINE_LENGTH = 65000
@@ -57,4 +58,22 @@ func StringToNumber(n string) int {
 		return 0
 	}
 	return res
+}
+
+func SpaceSeparatedStringOfNumbersToIntSlice(in string) ([]int, error) {
+	result := make([]int, 0)
+
+	in = strings.ReplaceAll(in, "  ", " ")
+	in = strings.TrimSpace(in)
+	numbers := strings.Split(in, " ")
+
+	for _, number := range numbers {
+		n, err := strconv.Atoi(number)
+		if err != nil {
+			return nil, err
+		}
+		result = append(result, n)
+	}
+
+	return result, nil
 }
