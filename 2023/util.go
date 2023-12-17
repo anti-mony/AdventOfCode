@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"os"
+	"strconv"
 )
 
 const MAX_LINE_LENGTH = 65000
@@ -41,4 +42,19 @@ func isCharNumber(c rune) bool {
 	}
 
 	return false
+}
+
+func isStringNumber(c string) bool {
+
+	r := []rune(c)
+
+	return isCharNumber(r[0])
+}
+
+func StringToNumber(n string) int {
+	res, err := strconv.Atoi(n)
+	if err != nil {
+		return 0
+	}
+	return res
 }
