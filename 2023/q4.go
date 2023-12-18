@@ -8,6 +8,7 @@ import (
 type Lottery struct {
 	Winning map[int]int
 	Yours   []int
+	Copies  int
 }
 
 func q4sol() error {
@@ -17,10 +18,32 @@ func q4sol() error {
 		return err
 	}
 
-	result := findPoints(cards)
+	result := playCardGames(cards)
 
 	fmt.Printf("Answer is %d \n", result)
 	return nil
+}
+
+func playCardGames(cards []Lottery) int {
+	result := 0
+
+	for idx, card := range cards {
+		found := 0
+		for _, yN := range card.Yours {
+			if _, ok := card.Winning[yN]; ok {
+				found += 1
+			}
+		}
+		for j := 1; j <= found && j+idx < len(cards); j++ {
+			cards[j+idx].Copies += card.Copies
+		}
+	}
+
+	for _, card := range cards {
+		result += card.Copies
+	}
+
+	return result
 }
 
 func findPoints(cards []Lottery) int {
@@ -71,7 +94,7 @@ func getLotteries() ([]Lottery, error) {
 			return nil, err
 		}
 
-		result = append(result, Lottery{winMap, yourNumbers})
+		result = append(result, Lottery{winMap, yourNumbers, 1})
 
 	}
 
