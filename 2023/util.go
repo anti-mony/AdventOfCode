@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -53,6 +54,7 @@ func isStringNumber(c string) bool {
 }
 
 func StringToNumber(n string) int {
+	n = strings.TrimSpace(n)
 	res, err := strconv.Atoi(n)
 	if err != nil {
 		return 0
@@ -63,11 +65,9 @@ func StringToNumber(n string) int {
 func SpaceSeparatedStringOfNumbersToIntSlice(in string) ([]int, error) {
 	result := make([]int, 0)
 
-	in = strings.ReplaceAll(in, "  ", " ")
-	in = strings.TrimSpace(in)
-	numbers := strings.Split(in, " ")
+	re := regexp.MustCompile("[0-9]+")
 
-	for _, number := range numbers {
+	for _, number := range re.FindAllString(in, -1) {
 		n, err := strconv.Atoi(number)
 		if err != nil {
 			return nil, err
