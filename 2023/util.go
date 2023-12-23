@@ -65,7 +65,7 @@ func StringToNumber(n string) int {
 func SpaceSeparatedStringOfNumbersToIntSlice(in string) ([]int, error) {
 	result := make([]int, 0)
 
-	re := regexp.MustCompile("[0-9]+")
+	re := regexp.MustCompile("-?[0-9]+")
 
 	for _, number := range re.FindAllString(in, -1) {
 		n, err := strconv.Atoi(number)
