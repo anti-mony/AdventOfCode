@@ -77,3 +77,38 @@ func SpaceSeparatedStringOfNumbersToIntSlice(in string) ([]int, error) {
 
 	return result, nil
 }
+
+func Dedupe[T string | int](inp []T) []T {
+	seen := make(map[T]bool)
+	result := make([]T, 0)
+	for _, v := range inp {
+		if _, ok := seen[v]; !ok {
+			result = append(result, v)
+			seen[v] = true
+		}
+
+	}
+	return result
+}
+
+func GCD(a, b int) int {
+	result := 0
+	if a > b {
+		result = b
+	} else {
+		result = a
+	}
+
+	for result > 0 {
+		if a%result == 0 && b%result == 0 {
+			return result
+		}
+		result--
+	}
+
+	return result
+}
+
+func LCM(a, b int) int {
+	return (a * b) / GCD(a, b)
+}
