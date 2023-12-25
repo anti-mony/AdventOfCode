@@ -10,6 +10,41 @@ import (
 
 const MAX_LINE_LENGTH = 65000
 
+/*
+i, j --> the directions refer to that
+0,0 0,1 0,2
+1,0 1,1 1,2
+2,0 2,1 2,2
+*/
+
+type Direction int
+
+const (
+	DirectionNorth Direction = iota + 1
+	DirectionEast
+	DirectionWest
+	DirectionSouth
+)
+
+var (
+	_north = Coordinate{-1, 0}
+	_east  = Coordinate{0, 1}
+	_south = Coordinate{1, 0}
+	_west  = Coordinate{0, -1}
+)
+
+var DIRECTIONS = map[Direction]Coordinate{
+	DirectionNorth: _north,
+	DirectionEast:  _east,
+	DirectionSouth: _south,
+	DirectionWest:  _west,
+}
+
+type Coordinate struct {
+	x int
+	y int
+}
+
 func getFileAsListOfStrings(filePath string) ([]string, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
