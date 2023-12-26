@@ -45,6 +45,10 @@ type Coordinate struct {
 	y int
 }
 
+func (c Coordinate) Add(i Coordinate) Coordinate {
+	return Coordinate{c.x + i.x, c.y + i.y}
+}
+
 func getFileAsListOfStrings(filePath string) ([]string, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
