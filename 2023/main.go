@@ -6,7 +6,7 @@ import (
 
 func main() {
 
-	err := q13sol()
+	err := q14sol()
 	if err != nil {
 		log.Fatal(err)
 	}
