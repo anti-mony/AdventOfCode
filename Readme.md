@@ -1,3 +1,4 @@
 # Advent Of Code
 
-I'll try to solve as many as I can :) 
+## 2023
+Do it in Python next year. If you do it in Go, use a different folder for each day.
