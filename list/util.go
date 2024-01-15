@@ -1,6 +1,7 @@
 package list
 
-func Dedupe[T string | int](inp []T) []T {
+// Dedupe dedpulicates and returns a new list
+func Dedupe[T string | int | float64 | float32](inp []T) []T {
 	seen := make(map[T]bool)
 	result := make([]T, 0)
 	for _, v := range inp {
