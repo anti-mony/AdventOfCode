@@ -11,6 +11,18 @@ const (
 	DirectionSouth
 )
 
+func (d Direction) Reverse() Direction {
+	switch d {
+	case DirectionEast:
+		return DirectionWest
+	case DirectionNorth:
+		return DirectionSouth
+	case DirectionSouth:
+		return DirectionNorth
+	}
+	return DirectionEast
+}
+
 var (
 	_north = Coordinate{-1, 0}
 	_east  = Coordinate{0, 1}
@@ -26,12 +38,12 @@ var DIRECTIONS = map[Direction]Coordinate{
 }
 
 type Coordinate struct {
-	x int
-	y int
+	X int
+	Y int
 }
 
 func (c Coordinate) Add(i Coordinate) Coordinate {
-	return Coordinate{c.x + i.x, c.y + i.y}
+	return Coordinate{c.X + i.X, c.Y + i.Y}
 }
 
 // PrintGrid prints a 2D array
