@@ -46,12 +46,17 @@ func (c Coordinate) Add(i Coordinate) Coordinate {
 	return Coordinate{c.X + i.X, c.Y + i.Y}
 }
 
+func (c Coordinate) MoveTowards(d Direction) Coordinate {
+	delta := DIRECTIONS[d]
+	return Coordinate{c.X + delta.X, c.Y + delta.Y}
+}
+
 // PrintGrid prints a 2D array
 func PrintGrid[T string | int](in [][]T) {
 	fmt.Println()
 	for i := 0; i < len(in); i++ {
 		for j := 0; j < len(in[i]); j++ {
-			fmt.Printf("%2v", in[i][j])
+			fmt.Printf("%v", in[i][j])
 		}
 		fmt.Println()
 	}
