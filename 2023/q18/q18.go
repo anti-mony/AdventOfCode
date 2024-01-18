@@ -47,7 +47,7 @@ func solveP1(input []Task) int {
 		ground[i] = make([]int, maxCols)
 	}
 
-	pos := grid.Coordinate{maxRows/2 - 1, maxCols/2 - 1}
+	pos := grid.Coordinate{X: maxRows/2 - 1, Y: maxCols/2 - 1}
 	ground[pos.X][pos.Y] = 1
 
 	for _, task := range input {
@@ -56,6 +56,8 @@ func solveP1(input []Task) int {
 			ground[pos.X][pos.Y] = 1
 		}
 	}
+
+	fmt.Printf("Pre Prune Grid Size: %dx%d \n", len(ground), len(ground[0]))
 
 	ground = pruneRows(ground)
 	ground = pruneCols(ground)
@@ -67,31 +69,36 @@ func solveP1(input []Task) int {
 
 func pruneRows(in [][]int) [][]int {
 	lastIndex := len(in) - 1
+	found := false
 	for lastIndex >= 0 {
 		for j := 0; j <= len(in)-1; j++ {
 			if in[lastIndex][j] == 1 {
-				lastIndex = -1
+				found = true
 				break
 			}
 		}
-		if lastIndex > 0 {
-			in = in[:lastIndex]
-			lastIndex = len(in) - 1
+		if found {
+			break
 		}
+		lastIndex--
 	}
 
+	found = false
 	firstIndex := 0
 	for firstIndex < len(in) {
 		for j := 0; j <= len(in[firstIndex])-1; j++ {
 			if in[firstIndex][j] == 1 {
-				return in
+				found = true
+				break
 			}
 		}
-		in = in[firstIndex+1:]
-		firstIndex = 0
+		if found {
+			break
+		}
+		firstIndex++
 	}
 
-	return in
+	return in[firstIndex : lastIndex+1]
 }
 
 func pruneCols(in [][]int) [][]int {
@@ -129,13 +136,14 @@ func pruneCols(in [][]int) [][]int {
 	}
 
 	for i := 0; i < nRows; i++ {
-		in[i] = in[i][firstIndex : lastIndex+1]
+		in[i] = in[i][firstIndex-1 : lastIndex+2]
 	}
 
 	return in
 }
 
 func calculateVolume(ground [][]int, depth int) int {
+
 	q := list.NewQueue()
 	for i := 0; i < len(ground[0]); i++ {
 		if ground[0][i] == 1 {
@@ -158,15 +166,10 @@ func calculateVolume(ground [][]int, depth int) int {
 		}
 	}
 
-	grid.PrintGrid(ground)
-
 	area := 0
-
 	for i := 0; i < len(ground); i++ {
 		for j := 0; j < len(ground[i]); j++ {
-			if ground[i][j] == 1 {
-				area++
-			}
+			area += ground[i][j]
 		}
 	}
 
