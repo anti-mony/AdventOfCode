@@ -65,13 +65,15 @@ func pressButton(config ModuleConfiguration, modules Modules) (int, int) {
 		} else {
 			highPulses++
 		}
-		for i, r := range config[pulse.To] {
-			moduleTo := modules[pulse.To]
-			emittedPulse := moduleTo.Emit(pulse.From, pulse.Value, i+1 == len(config[pulse.To]))
-			if emittedPulse == nil {
-				continue
+
+		moduleTo, moduleExists := modules[pulse.To]
+		if moduleExists {
+			emittedPulse := moduleTo.Emit(pulse.From, pulse.Value)
+			if emittedPulse != nil {
+				for _, r := range config[pulse.To] {
+					q.Push(Pulse{From: pulse.To, To: r, Value: *emittedPulse})
+				}
 			}
-			q.Push(Pulse{From: pulse.To, To: r, Value: *emittedPulse})
 		}
 	}
 
@@ -90,13 +92,14 @@ func pressButtonP2(config ModuleConfiguration, modules Modules, outputModuleName
 			return true
 		}
 
-		for i, r := range config[pulse.To] {
-			moduleTo := modules[pulse.To]
-			emittedPulse := moduleTo.Emit(pulse.From, pulse.Value, i+1 == len(config[pulse.To]))
-			if emittedPulse == nil {
-				continue
+		moduleTo, moduleExists := modules[pulse.To]
+		if moduleExists {
+			emittedPulse := moduleTo.Emit(pulse.From, pulse.Value)
+			if emittedPulse != nil {
+				for _, r := range config[pulse.To] {
+					q.Push(Pulse{From: pulse.To, To: r, Value: *emittedPulse})
+				}
 			}
-			q.Push(Pulse{From: pulse.To, To: r, Value: *emittedPulse})
 		}
 	}
 
@@ -130,7 +133,7 @@ type Module struct {
 	On     bool
 }
 
-func (m *Module) Emit(from string, pulse int, updateState bool) *int {
+func (m *Module) Emit(from string, pulse int) *int {
 
 	if m.Type == ModuleTypeUnknown {
 		return nil
@@ -146,18 +149,15 @@ func (m *Module) Emit(from string, pulse int, updateState bool) *int {
 		}
 		newPulse := 0
 		if !m.On {
-			if updateState {
-				m.On = true
-			}
+			m.On = true
 			newPulse = 1
 		} else {
-			if updateState {
-				m.On = false
-			}
+			m.On = false
 		}
 		return &newPulse
 	}
 
+	// if m.Type == Conjunction
 	m.Memory[from] = pulse
 
 	pulses := 0
