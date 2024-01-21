@@ -72,3 +72,11 @@ func SpaceSeparatedStringOfNumbersToIntSlice(in string) ([]int, error) {
 	}
 	return result, nil
 }
+
+func CopyStringToIntMap(in map[string]int) map[string]int {
+	result := make(map[string]int)
+	for k, v := range in {
+		result[k] = v
+	}
+	return result
+}

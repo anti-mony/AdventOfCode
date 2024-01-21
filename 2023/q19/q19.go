@@ -6,17 +6,25 @@ import (
 	"regexp"
 	"strings"
 
+	"advent.of.code/list"
 	"advent.of.code/util"
 )
 
+const RANGE_MAX = uint64(4000)
+
 func main() {
 
-	wkflows, parts, err := getInput("input.txt")
+	wkflows, parts, err := getInput("input.small.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	fmt.Printf("P1 Answer is %d\n", solveP1(parts, wkflows))
+
+	answerP2 := solveP2(wkflows)
+	fmt.Printf("P2 Answer is %d\n", answerP2)
+
+	fmt.Printf("Answer matches : %v \n", answerP2 == 167409079868000)
 }
 
 func solveP1(parts []Part, wkflows map[string][]Condition) int {
@@ -24,6 +32,40 @@ func solveP1(parts []Part, wkflows map[string][]Condition) int {
 	for _, p := range parts {
 		if AcceptPart(p, wkflows) {
 			result += p.SumXMAS()
+		}
+	}
+
+	return result
+}
+
+func solveP2(wkflows map[string][]Condition) uint64 {
+	stack := list.NewStack()
+	stack.Push(stackVar{
+		workflow: "in",
+		part:     Part{Categories: map[string]int{}},
+	})
+	result := uint64(0)
+	for stack.Len() > 0 {
+		current := stack.Pop().(stackVar)
+		fmt.Printf("Current Workflow: %s \n", current.workflow)
+		for _, c := range wkflows[current.workflow] {
+			if c.Operator == ">" {
+				if c.Result == "A" {
+					result += current.part.MultiplyXMAS()
+					continue
+				}
+				stack.Push(stackVar{workflow: c.Result})
+			} else if c.Operator == "<" {
+				if c.Result == "A" {
+					result += current.part.MultiplyXMAS()
+					continue
+				}
+				stack.Push(stackVar{workflow: c.Result})
+			} else if c.Result == "A" {
+				result += current.part.MultiplyXMAS()
+			} else if c.Result != "R" {
+				stack.Push(stackVar{workflow: c.Result})
+			}
 		}
 	}
 
@@ -61,6 +103,11 @@ func AcceptPart(part Part, wkflows map[string][]Condition) bool {
 	}
 }
 
+type stackVar struct {
+	workflow string
+	part     Part
+}
+
 type Condition struct {
 	Operator     string
 	Result       string
@@ -78,6 +125,26 @@ func (m Part) SumXMAS() int {
 		res += v
 	}
 	return res
+}
+
+func (m Part) MultiplyXMAS() uint64 {
+	res := uint64(1)
+	for _, c := range []string{"X", "M", "A", "S"} {
+		if v, ok := m.Categories[c]; ok {
+			res *= uint64(v)
+		} else {
+			res *= RANGE_MAX
+		}
+	}
+	return res
+}
+
+func (m Part) Update(c string, value int) {
+	if v, ok := m.Categories[c]; ok {
+	} else {
+		m.Categories[c] = value
+	}
+
 }
 
 func getInput(filename string) (map[string][]Condition, []Part, error) {
