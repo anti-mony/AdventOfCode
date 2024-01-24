@@ -51,6 +51,10 @@ func (c Coordinate) MoveTowards(d Direction) Coordinate {
 	return Coordinate{c.X + delta.X, c.Y + delta.Y}
 }
 
+func (c Coordinate) String() string {
+	return fmt.Sprintf("(%d, %d)", c.X, c.Y)
+}
+
 // PrintGrid prints a 2D array
 func PrintGrid[T string | int](in [][]T) {
 	fmt.Println()
