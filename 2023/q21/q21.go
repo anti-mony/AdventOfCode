@@ -8,31 +8,48 @@ import (
 	"advent.of.code/util"
 )
 
-const DEBUG = false
-
 func main() {
-	numberOfSteps := 6
-	maze, startPos, err := getInput("input.small.txt")
+	numberOfSteps := 64
+	maze, startPos, err := getInput("input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if DEBUG {
-		length, width := len(maze), 0
-		if length > 0 {
-			width = len(maze[0])
-		}
-		grid.PrintGrid(maze)
-		fmt.Printf("Number of Steps: %d | Maze Size: %d X %d | Start Position: %v\n", numberOfSteps, length, width, startPos)
+	length, width := len(maze), 0
+	if length > 0 {
+		width = len(maze[0])
 	}
+	fmt.Printf("Number of Steps: %d | Maze Size: %d X %d | Start Position: %v\n\n", numberOfSteps, length, width, startPos)
 
-	fmt.Printf("P1 Answer is %d \n", solveP1(maze, startPos, numberOfSteps))
+	fmt.Printf("P1 Answer is %d for %d steps \n", solveP1(maze, startPos, numberOfSteps), numberOfSteps)
 }
 
-func solveP1(maze [][]string, start grid.Coordinate, numberOfSteps int) int {
-	result := 0
+func solveP1(maze [][]string, start grid.Coordinate, maxSteps int) int {
 
-	return result
+	visited := map[grid.Coordinate]bool{start: true}
+
+	for i := 0; i < maxSteps; i++ {
+		newVisited := map[grid.Coordinate]bool{start: true}
+
+		for pos, _ := range visited {
+			for i := 1; i <= 4; i++ {
+				nextPos := pos.MoveTowards(grid.Direction(i))
+				if _, alreadyVisited := visited[nextPos]; alreadyVisited ||
+					!isValidCoordinate(maze, nextPos) ||
+					maze[nextPos.X][nextPos.Y] == "#" {
+					continue
+				}
+				newVisited[nextPos] = true
+			}
+		}
+		visited = newVisited
+	}
+
+	return len(visited)
+}
+
+func isValidCoordinate(maze [][]string, c grid.Coordinate) bool {
+	return c.X >= 0 && c.X < len(maze) && c.Y >= 0 && c.Y < len(maze[c.X])
 }
 
 func getInput(filename string) ([][]string, grid.Coordinate, error) {

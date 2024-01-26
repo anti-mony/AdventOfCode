@@ -1,5 +1,7 @@
 package list
 
+import "fmt"
+
 type queue struct {
 	store []any
 }
@@ -32,4 +34,10 @@ func (s *queue) Peek() any {
 
 func (s *queue) Len() int {
 	return len(s.store)
+}
+
+func (s *queue) Print() {
+	for _, v := range s.store {
+		fmt.Printf("%v \n", v)
+	}
 }
