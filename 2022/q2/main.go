@@ -15,6 +15,8 @@ func main() {
 	}
 
 	fmt.Println("Answer P1 : ", solveP1(input))
+
+	fmt.Println("Answer P2 : ", solveP2(input))
 }
 
 func solveP1(rounds []Round) int {
@@ -23,47 +25,77 @@ func solveP1(rounds []Round) int {
 	for _, round := range rounds {
 		score := actionVal[round.Your]
 		roundres := RockPaperScissor(round.Your, round.Opponent)
-		if roundres > 0 {
-			score += 6
-		} else if roundres < 0 {
-			score += 0
-		} else {
-			score += 3
-		}
+		score += resultVal[roundres]
 		result += score
 	}
 	return result
 }
 
-func RockPaperScissor(my, opponent Action) int {
+func solveP2(rounds []Round) int {
+	result := 0
+	for _, round := range rounds {
+		myMove := RockPaperScissorReverse(round.Opponent, round.Result)
+		result += actionVal[myMove] + resultVal[round.Result]
+	}
+	return result
+}
+
+func RockPaperScissorReverse(opponent Action, result Result) Action {
+	// Win
+	if result == ResultWin {
+		switch opponent {
+		case ActionPaper:
+			return ActionScissor
+		case ActionScissor:
+			return ActionRock
+		case ActionRock:
+			return ActionPaper
+		}
+	}
+
+	if result == ResultLose {
+		switch opponent {
+		case ActionRock:
+			return ActionScissor
+		case ActionPaper:
+			return ActionRock
+		case ActionScissor:
+			return ActionPaper
+		}
+	}
+
+	return opponent
+}
+
+func RockPaperScissor(my, opponent Action) Result {
 	if my == ActionRock {
 		if opponent == ActionPaper {
-			return -1
+			return ResultLose
 		}
 		if opponent == ActionScissor {
-			return 1
+			return ResultWin
 		}
 	}
 
 	if my == ActionPaper {
 		if opponent == ActionScissor {
-			return -1
+			return ResultLose
 		}
 		if opponent == ActionRock {
-			return 1
+			return ResultWin
 		}
 	}
 
 	if my == ActionScissor {
 		if opponent == ActionRock {
-			return -1
+			return ResultLose
 		}
 		if opponent == ActionPaper {
-			return 1
+			return ResultWin
 		}
 	}
 
-	return 0
+	return ResultDraw
 }
 
 type Action int
@@ -74,15 +106,30 @@ const (
 	ActionScissor
 )
 
+type Result int
+
+const (
+	ResultWin Result = iota
+	ResultLose
+	ResultDraw
+)
+
 type Round struct {
 	Opponent Action
 	Your     Action
+	Result   Result
 }
 
 var actionVal = map[Action]int{
 	ActionScissor: 3,
 	ActionPaper:   2,
 	ActionRock:    1,
+}
+
+var resultVal = map[Result]int{
+	ResultWin:  6,
+	ResultDraw: 3,
+	ResultLose: 0,
 }
 
 func parseInput(fileName string) ([]Round, error) {
@@ -94,22 +141,22 @@ func parseInput(fileName string) ([]Round, error) {
 	res := make([]Round, 0)
 	for _, line := range lines {
 		inp := strings.Split(line, " ")
-		opponentAction := getActionFromString(inp[0])
-		myAction := getActionFromString(inp[1])
-		res = append(res, Round{opponentAction, myAction})
+		opponentAction, _ := getActionFromString(inp[0])
+		myAction, result := getActionFromString(inp[1])
+		res = append(res, Round{opponentAction, myAction, result})
 	}
 
 	return res, nil
 }
 
-func getActionFromString(in string) Action {
+func getActionFromString(in string) (Action, Result) {
 	if in == "A" || in == "X" {
-		return ActionRock
+		return ActionRock, ResultLose
 	}
 
 	if in == "B" || in == "Y" {
-		return ActionPaper
+		return ActionPaper, ResultDraw
 	}
 
-	return ActionScissor
+	return ActionScissor, ResultWin
 }
