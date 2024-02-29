@@ -7,16 +7,12 @@ import (
 )
 
 func TestLinkedList(t *testing.T) {
-
-	compare := func(a, b any) bool {
-		av := a.(int)
-		bv := b.(int)
-
-		return av == bv
+	compare := func(a, b int) bool {
+		return a == b
 	}
 
 	t.Run("append to empty list", func(t *testing.T) {
-		ll := NewLinkedList()
+		ll := NewLinkedList[int]()
 		ll.Append(1)
 		assert.Equal(t, 1, ll.Length())
 		assert.NotNil(t, ll.First)
@@ -24,14 +20,14 @@ func TestLinkedList(t *testing.T) {
 	})
 
 	t.Run("append to non empty list", func(t *testing.T) {
-		ll := NewLinkedList()
+		ll := NewLinkedList[int]()
 		ll.Append(1)
 		ll.Append(11)
 		assert.Equal(t, 2, ll.Length())
 	})
 
 	t.Run("prepend to empty list", func(t *testing.T) {
-		ll := NewLinkedList()
+		ll := NewLinkedList[int]()
 		ll.Prepend(1)
 		assert.Equal(t, 1, ll.Length())
 		assert.NotNil(t, ll.First)
@@ -39,14 +35,14 @@ func TestLinkedList(t *testing.T) {
 	})
 
 	t.Run("prepend to non empty list", func(t *testing.T) {
-		ll := NewLinkedList()
+		ll := NewLinkedList[int]()
 		ll.Append(1)
 		ll.Prepend(11)
 		assert.Equal(t, 2, ll.Length())
 	})
 
 	t.Run("Delete last element", func(t *testing.T) {
-		ll := NewLinkedList()
+		ll := NewLinkedList[int]()
 		ll.Append(1)
 		ll.Append(2)
 		ll.Append(3)
@@ -58,7 +54,7 @@ func TestLinkedList(t *testing.T) {
 	})
 
 	t.Run("Delete first element", func(t *testing.T) {
-		ll := NewLinkedList()
+		ll := NewLinkedList[int]()
 		ll.Append(1)
 		ll.Append(2)
 		ll.Append(3)
@@ -70,7 +66,7 @@ func TestLinkedList(t *testing.T) {
 	})
 
 	t.Run("Delete only element", func(t *testing.T) {
-		ll := NewLinkedList()
+		ll := NewLinkedList[int]()
 		ll.Append(1)
 
 		ll.Delete(1, compare)
@@ -78,5 +74,4 @@ func TestLinkedList(t *testing.T) {
 		assert.Nil(t, ll.First)
 		assert.Nil(t, ll.Last)
 	})
-
 }

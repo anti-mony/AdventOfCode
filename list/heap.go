@@ -1,31 +1,31 @@
 package list
 
-type heap struct {
-	store     []any
-	IsGreater func(a, b any) bool
+type heap[T any] struct {
+	IsGreater func(a, b T) bool
+	store     []T
 }
 
-type Heap interface {
-	Push(v any)
-	Pop() any
-	Peek() any
+type Heap[T any] interface {
+	Push(v T)
+	Pop() T
+	Peek() T
 	Len() int
 	IsEmpty() bool
-	GetStore() []any
+	GetStore() []T
 }
 
 /*
 NewHeap retuns a new heap.
 IsGreater method helps manage min/max heap
 */
-func NewHeap(isGreater func(a, b any) bool) Heap {
-	return &heap{
-		store:     make([]any, 0),
+func NewHeap[T any](isGreater func(a, b T) bool) Heap[T] {
+	return &heap[T]{
+		store:     make([]T, 0),
 		IsGreater: isGreater,
 	}
 }
 
-func (h *heap) Push(v any) {
+func (h *heap[T]) Push(v T) {
 	h.store = append(h.store, v)
 	idx := len(h.store) - 1
 
@@ -35,7 +35,7 @@ func (h *heap) Push(v any) {
 	}
 }
 
-func (h *heap) Pop() any {
+func (h *heap[T]) Pop() T {
 	if h.IsEmpty() {
 		panic("empty heap")
 	}
@@ -48,26 +48,26 @@ func (h *heap) Pop() any {
 	return v
 }
 
-func (h *heap) Peek() any {
+func (h *heap[T]) Peek() T {
 	if h.IsEmpty() {
 		panic("empty heap")
 	}
 	return h.store[0]
 }
 
-func (h *heap) Len() int {
+func (h *heap[T]) Len() int {
 	return len(h.store)
 }
 
-func (h *heap) IsEmpty() bool {
+func (h *heap[T]) IsEmpty() bool {
 	return len(h.store) == 0
 }
 
-func (h *heap) GetStore() []any {
+func (h *heap[T]) GetStore() []T {
 	return h.store
 }
 
-func (h *heap) heapify(idx int) {
+func (h *heap[T]) heapify(idx int) {
 	biggest := idx
 	leftChild := h.leftChild(idx)
 	rightChild := h.rightChild(idx)
@@ -85,18 +85,18 @@ func (h *heap) heapify(idx int) {
 	}
 }
 
-func (h *heap) parent(idx int) int {
+func (h *heap[T]) parent(idx int) int {
 	return (idx - 1) / 2
 }
 
-func (h *heap) leftChild(idx int) int {
+func (h *heap[T]) leftChild(idx int) int {
 	return 2*idx + 1
 }
 
-func (h *heap) rightChild(idx int) int {
+func (h *heap[T]) rightChild(idx int) int {
 	return 2*idx + 2
 }
 
-func (h *heap) valueAt(idx int) any {
+func (h *heap[T]) valueAt(idx int) T {
 	return h.store[idx]
 }

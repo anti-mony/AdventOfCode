@@ -2,23 +2,23 @@ package list
 
 import "fmt"
 
-type node struct {
-	Value    any
-	next     *node
-	previous *node
+type node[T any] struct {
+	Value    T
+	next     *node[T]
+	previous *node[T]
 }
 
-type LinkedList struct {
-	First *node
-	Last  *node
+type LinkedList[T any] struct {
+	First *node[T]
+	Last  *node[T]
 }
 
-func NewLinkedList() *LinkedList {
-	return &LinkedList{}
+func NewLinkedList[T any]() *LinkedList[T] {
+	return &LinkedList[T]{}
 }
 
-func (l *LinkedList) Append(value any) {
-	node := node{Value: value, next: nil, previous: nil}
+func (l *LinkedList[T]) Append(value T) {
+	node := node[T]{Value: value, next: nil, previous: nil}
 
 	if l.First == nil && l.Last == nil {
 		l.First = &node
@@ -32,8 +32,8 @@ func (l *LinkedList) Append(value any) {
 	l.Last = &node
 }
 
-func (l *LinkedList) Prepend(value any) {
-	node := node{Value: value, next: nil, previous: nil}
+func (l *LinkedList[T]) Prepend(value T) {
+	node := node[T]{Value: value, next: nil, previous: nil}
 
 	if l.First == nil && l.Last == nil {
 		l.First = &node
@@ -47,8 +47,7 @@ func (l *LinkedList) Prepend(value any) {
 	l.First = &node
 }
 
-func (l *LinkedList) Print() {
-
+func (l *LinkedList[T]) Print() {
 	tmp := l.First
 
 	for tmp != nil {
@@ -58,7 +57,7 @@ func (l *LinkedList) Print() {
 	fmt.Println()
 }
 
-func (l *LinkedList) Delete(v any, compare func(a, b any) bool) {
+func (l *LinkedList[T]) Delete(v T, compare func(a, b T) bool) {
 	if l.IsEmpty() {
 		return
 	}
@@ -88,7 +87,7 @@ func (l *LinkedList) Delete(v any, compare func(a, b any) bool) {
 	}
 }
 
-func (l *LinkedList) UpsertAppend(v any, compare func(a, b any) bool) {
+func (l *LinkedList[T]) UpsertAppend(v T, compare func(a, b T) bool) {
 	if l.First == nil {
 		l.Append(v)
 		return
@@ -107,11 +106,11 @@ func (l *LinkedList) UpsertAppend(v any, compare func(a, b any) bool) {
 	l.Append(v)
 }
 
-func (l *LinkedList) IsEmpty() bool {
+func (l *LinkedList[T]) IsEmpty() bool {
 	return l.First == nil
 }
 
-func (l *LinkedList) Length() int {
+func (l *LinkedList[T]) Length() int {
 	length := 0
 	tmp := l.First
 	for tmp != nil {

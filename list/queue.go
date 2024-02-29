@@ -2,19 +2,27 @@ package list
 
 import "fmt"
 
-type queue struct {
-	store []any
+type Queue[T any] interface {
+	Push(in T)
+	Pop() T
+	Peek() T
+	Len() int
+	Print()
 }
 
-func NewQueue() *queue {
-	return &queue{make([]any, 0)}
+type queue[T any] struct {
+	store []T
 }
 
-func (s *queue) Push(in any) {
+func NewQueue[T any]() Queue[T] {
+	return &queue[T]{make([]T, 0)}
+}
+
+func (s *queue[T]) Push(in T) {
 	s.store = append(s.store, in)
 }
 
-func (s *queue) Pop() any {
+func (s *queue[T]) Pop() T {
 	n := len(s.store)
 	if n == 0 {
 		panic("nil queue")
@@ -24,7 +32,7 @@ func (s *queue) Pop() any {
 	return v
 }
 
-func (s *queue) Peek() any {
+func (s *queue[T]) Peek() T {
 	n := len(s.store)
 	if n == 0 {
 		panic("nil queue")
@@ -32,11 +40,11 @@ func (s *queue) Peek() any {
 	return s.store[0]
 }
 
-func (s *queue) Len() int {
+func (s *queue[T]) Len() int {
 	return len(s.store)
 }
 
-func (s *queue) Print() {
+func (s *queue[T]) Print() {
 	for _, v := range s.store {
 		fmt.Printf("%v \n", v)
 	}
