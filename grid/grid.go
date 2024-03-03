@@ -10,6 +10,10 @@ const (
 	DirectionEast
 	DirectionWest
 	DirectionSouth
+	DirectionNorthEast
+	DirectionNorthWest
+	DirectionSouthEast
+	DirectionSouthWest
 )
 
 func (d Direction) Reverse() Direction {
@@ -20,22 +24,38 @@ func (d Direction) Reverse() Direction {
 		return DirectionSouth
 	case DirectionSouth:
 		return DirectionNorth
+	case DirectionNorthEast:
+		return DirectionSouthWest
+	case DirectionNorthWest:
+		return DirectionSouthEast
+	case DirectionSouthEast:
+		return DirectionNorthWest
+	case DirectionSouthWest:
+		return DirectionNorthEast
 	}
 	return DirectionEast
 }
 
 var (
-	_north = Coordinate{-1, 0}
-	_east  = Coordinate{0, 1}
-	_south = Coordinate{1, 0}
-	_west  = Coordinate{0, -1}
+	_north     = Coordinate{-1, 0}
+	_east      = Coordinate{0, 1}
+	_south     = Coordinate{1, 0}
+	_west      = Coordinate{0, -1}
+	_northEast = Coordinate{-1, 1}
+	_northWest = Coordinate{-1, -1}
+	_southEast = Coordinate{1, 1}
+	_southWest = Coordinate{1, -1}
 )
 
 var DIRECTIONS = map[Direction]Coordinate{
-	DirectionNorth: _north,
-	DirectionEast:  _east,
-	DirectionSouth: _south,
-	DirectionWest:  _west,
+	DirectionNorth:     _north,
+	DirectionEast:      _east,
+	DirectionSouth:     _south,
+	DirectionWest:      _west,
+	DirectionNorthEast: _northEast,
+	DirectionNorthWest: _northWest,
+	DirectionSouthEast: _southEast,
+	DirectionSouthWest: _southWest,
 }
 
 type Coordinate struct {
