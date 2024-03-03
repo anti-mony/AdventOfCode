@@ -60,45 +60,41 @@ func (c Coordinate) String() string {
 	return fmt.Sprintf("(%d, %d)", c.X, c.Y)
 }
 
-// PrintGrid prints a 2D array
-func PrintGrid[T string | int](in [][]T) {
-	fmt.Println()
-	for i := 0; i < len(in); i++ {
-		for j := 0; j < len(in[i]); j++ {
-			fmt.Printf("%v", in[i][j])
-		}
-		fmt.Println()
-	}
-	fmt.Println()
+type grid[T any] struct {
+	Store [][]T
 }
 
-// CopyGrid copies a 2D array
-func CopyGrid[T string | int](in [][]T) [][]T {
-	result := make([][]T, len(in))
-	for i := 0; i < len(in); i++ {
-		row := make([]T, len(in[i]))
-		copy(row, in[i])
-		result[i] = row
+func NewGrid[T any](rows, columns int) *grid[T] {
+	grid := &grid[T]{
+		Store: make([][]T, rows),
 	}
-	return result
+	for idx := range grid.Store {
+		grid.Store[idx] = make([]T, columns)
+	}
+
+	return grid
 }
 
-// AreEqual compares two grid and returns a bool
-func AreEqual[T string | int](a [][]T, b [][]T) bool {
-	if len(a) != len(b) {
-		return false
+func (g *grid[T]) Dimensions() (int, int) {
+	rows, cols := 0, 0
+	if g == nil {
+		return rows, cols
 	}
 
-	for i := 0; i < len(a); i++ {
-		if len(a[i]) != len(b[i]) {
-			return false
-		}
-		for j := 0; j < len(a[i]); j++ {
-			if a[i][j] != b[i][j] {
-				return false
-			}
-		}
+	rows = len(g.Store)
+	if rows == 0 {
+		return rows, cols
 	}
 
-	return true
+	cols = len(g.Store[0])
+
+	return rows, cols
+}
+
+func (g *grid[T]) InBound(c Coordinate) bool {
+	return c.X >= 0 && c.X < len(g.Store) && c.Y >= 0 && c.Y < len(g.Store[0])
+}
+
+func (g *grid[T]) ValueAt(c Coordinate) T {
+	return g.Store[c.X][c.Y]
 }
