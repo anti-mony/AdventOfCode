@@ -2,6 +2,7 @@ package grid
 
 import "fmt"
 
+//go:generate stringer -type=Direction
 type Direction int
 
 const (
@@ -40,6 +41,10 @@ var DIRECTIONS = map[Direction]Coordinate{
 type Coordinate struct {
 	X int
 	Y int
+}
+
+func NewCoordinate(x, y int) Coordinate {
+	return Coordinate{X: x, Y: y}
 }
 
 func (c Coordinate) Add(i Coordinate) Coordinate {
