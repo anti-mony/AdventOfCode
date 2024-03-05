@@ -1,6 +1,10 @@
 package grid
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+	"strings"
+)
 
 //go:generate stringer -type=Direction
 type Direction int
@@ -34,6 +38,19 @@ func (d Direction) Reverse() Direction {
 		return DirectionNorthEast
 	}
 	return DirectionEast
+}
+
+func DirectionFromRLUD(in string) Direction {
+	switch strings.ToUpper(in) {
+	case "R":
+		return DirectionEast
+	case "L":
+		return DirectionWest
+	case "U":
+		return DirectionNorth
+	}
+
+	return DirectionSouth
 }
 
 var (
@@ -74,6 +91,13 @@ func (c Coordinate) Add(i Coordinate) Coordinate {
 func (c Coordinate) MoveTowards(d Direction) Coordinate {
 	delta := DIRECTIONS[d]
 	return Coordinate{c.X + delta.X, c.Y + delta.Y}
+}
+
+func (c Coordinate) DistanceFrom(d Coordinate) int {
+	x2 := (c.X - d.X) * (c.X - d.X)
+	y2 := (c.Y - d.Y) * (c.Y - d.Y)
+
+	return int(math.Sqrt(float64(x2) + float64(y2)))
 }
 
 func (c Coordinate) String() string {
