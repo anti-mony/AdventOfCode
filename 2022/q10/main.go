@@ -5,6 +5,7 @@ import (
 	"log"
 	"strings"
 
+	"advent.of.code/grid"
 	"advent.of.code/util"
 )
 
@@ -15,6 +16,49 @@ func main() {
 	}
 
 	fmt.Printf("> Answer P1: %d \n", solveP1(commands))
+
+	solveP2(commands)
+}
+
+func solveP2(commands []Command) {
+	register := 1
+	current := 0
+	tick := 0
+
+	CRT_Rows := 6
+	CRT_Cols := 40
+
+	CRT := make([][]string, CRT_Rows)
+
+	for i := 0; i < CRT_Rows; i++ {
+		CRT[i] = make([]string, CRT_Cols)
+	}
+
+	for i := 0; i < 240; i++ {
+		// Draw
+		spritePos := register % CRT_Cols
+		CRTRow := i / CRT_Cols
+		CRTCol := i - (CRTRow * CRT_Cols)
+
+		if CRTCol == spritePos-1 || CRTCol == spritePos || CRTCol == spritePos+1 {
+			CRT[CRTRow][CRTCol] = "#"
+		} else {
+			CRT[CRTRow][CRTCol] = "."
+		}
+
+		if commands[current].NoOp {
+			current++
+		} else if commands[current].Add {
+			tick++
+			if tick == 2 {
+				register += commands[current].Value
+				tick = 0
+				current++
+			}
+		}
+	}
+
+	grid.PrintGrid(CRT)
 }
 
 func solveP1(commands []Command) int {
