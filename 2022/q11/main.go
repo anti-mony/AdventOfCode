@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"math/big"
 	"os"
 	"regexp"
 	"slices"
@@ -24,30 +25,43 @@ func main() {
 
 	fmt.Printf("> Answer P1 : %d \n", solveP1(monkeys, 20, 3))
 
-	fmt.Printf("> Answer P2 : %d \n", solveP2(monkeys, 10000, 1))
+	fmt.Printf("> Answer P2 : %d \n", solveP2(monkeys, 1000))
 }
 
-func solveP2(monkeys []*Monkey, nRounds int, worryLevelRelaxer uint) uint64 {
+func solveP2(monkeys []*Monkey, nRounds int) uint64 {
 	inspections := make([]uint64, len(monkeys))
 
 	for round := 0; round < nRounds; round++ {
 		for mi, m := range monkeys {
-			inspections[mi] += uint64(len(m.Items))
+			inspections[mi] += uint64(len(m.BigItems))
 
-			for _, item := range m.Items {
-				worryLevel := operate(item, m.Operation, m.OperateWith)
-				relievedWorryLevel := worryLevel / worryLevelRelaxer
-				if relievedWorryLevel%m.TestDivisibleBy == 0 {
-					monkeys[m.TestPass].Items = append(monkeys[m.TestPass].Items, relievedWorryLevel)
+			for _, item := range m.BigItems {
+				worryLevel := *big.NewInt(item.Int64())
+				operateWith := *big.NewInt(item.Int64())
+				if m.OperateWith != nil {
+					operateWith.SetInt64(int64(*m.OperateWith))
+				}
+
+				if m.Operation == "+" {
+					worryLevel.Add(&worryLevel, &operateWith)
 				} else {
-					monkeys[m.TestFail].Items = append(monkeys[m.TestFail].Items, relievedWorryLevel)
+					worryLevel.Mul(&worryLevel, &operateWith)
+				}
+
+				wMod := big.NewInt(worryLevel.Int64())
+				wMod.Mod(wMod, big.NewInt(int64(m.TestDivisibleBy)))
+				if wMod.Int64() == 0 {
+					monkeys[m.TestPass].BigItems = append(monkeys[m.TestPass].BigItems, worryLevel)
+				} else {
+					monkeys[m.TestFail].BigItems = append(monkeys[m.TestFail].BigItems, worryLevel)
 				}
 			}
-			monkeys[mi].Items = make([]uint, 0)
+			monkeys[mi].BigItems = make([]big.Int, 0)
 
 		}
 	}
 
+	fmt.Println(inspections)
 	slices.Sort(inspections)
 	return inspections[len(inspections)-1] * inspections[len(inspections)-2]
 }
@@ -92,6 +106,7 @@ func operate(existing uint, operation string, operand *int) uint {
 
 type Monkey struct {
 	Items           []uint
+	BigItems        []big.Int
 	Operation       string
 	OperateWith     *int
 	TestDivisibleBy uint
@@ -113,8 +128,10 @@ func parseInput(filename string) ([]*Monkey, error) {
 	for i := 0; i < len(lines); i += 7 {
 		itemsStr := re.FindAllString(lines[i+1], -1)
 		items := make([]uint, len(itemsStr))
+		bigItems := make([]big.Int, len(itemsStr))
 		for i, v := range itemsStr {
 			items[i] = uint(util.StringToNumber(v))
+			bigItems[i] = *big.NewInt(int64(util.StringToNumber(v)))
 		}
 
 		opsSplit := strings.Split(strings.Split(lines[i+2], "=")[1], " ")
@@ -129,7 +146,7 @@ func parseInput(filename string) ([]*Monkey, error) {
 		testFail := util.StringToNumber(re.FindAllString(lines[i+5], -1)[0])
 
 		result = append(result, &Monkey{
-			items, opsSplit[2], opsInt, uint(divisibleBy), testPass, testFail,
+			items, bigItems, opsSplit[2], opsInt, uint(divisibleBy), testPass, testFail,
 		})
 
 	}
