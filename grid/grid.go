@@ -104,41 +104,48 @@ func (c Coordinate) String() string {
 	return fmt.Sprintf("(%d, %d)", c.X, c.Y)
 }
 
-type grid[T any] struct {
-	Store [][]T
+type Grid[T any] struct {
+	store [][]T
 }
 
-func NewGrid[T any](rows, columns int) *grid[T] {
-	grid := &grid[T]{
-		Store: make([][]T, rows),
+func NewGrid[T any](rows, columns int) *Grid[T] {
+	grid := &Grid[T]{
+		store: make([][]T, rows),
 	}
-	for idx := range grid.Store {
-		grid.Store[idx] = make([]T, columns)
+	for idx := range grid.store {
+		grid.store[idx] = make([]T, columns)
 	}
 
 	return grid
 }
 
-func (g *grid[T]) Dimensions() (int, int) {
+func (g *Grid[T]) Dimensions() (int, int) {
 	rows, cols := 0, 0
 	if g == nil {
 		return rows, cols
 	}
 
-	rows = len(g.Store)
+	rows = len(g.store)
 	if rows == 0 {
 		return rows, cols
 	}
 
-	cols = len(g.Store[0])
+	cols = len(g.store[0])
 
 	return rows, cols
 }
 
-func (g *grid[T]) InBound(c Coordinate) bool {
-	return c.X >= 0 && c.X < len(g.Store) && c.Y >= 0 && c.Y < len(g.Store[0])
+func (g *Grid[T]) InBound(c Coordinate) bool {
+	return c.X >= 0 && c.X < len(g.store) && c.Y >= 0 && c.Y < len(g.store[0])
 }
 
-func (g *grid[T]) ValueAt(c Coordinate) T {
-	return g.Store[c.X][c.Y]
+func (g *Grid[T]) ValueAt(c Coordinate) T {
+	return g.store[c.X][c.Y]
+}
+
+func (g *Grid[T]) SetValueAt(c Coordinate, v T) {
+	if !g.InBound(c) {
+		panic("")
+	}
+	g.store[c.X][c.Y] = v
 }
