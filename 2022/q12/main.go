@@ -22,6 +22,8 @@ func main() {
 	}
 
 	fmt.Println("> Answer P1: ", solveP1(input))
+
+	fmt.Println("> Answer P2: ", solveP2(input))
 }
 
 type qVar struct {
@@ -31,6 +33,35 @@ type qVar struct {
 
 func (q qVar) String() string {
 	return fmt.Sprintf("[%v, %d]", q.Cd, q.Dist)
+}
+
+func solveP2(in PuzzleInput) int {
+	q := list.NewQueue[qVar]()
+	q.Push(qVar{in.End, 0})
+
+	seen := map[grid.Coordinate]any{in.End: struct{}{}}
+
+	for q.Len() > 0 {
+		current := q.Pop()
+
+		for i := 1; i < 5; i++ {
+			dir := grid.Direction(i)
+			next := current.Cd.MoveTowards(dir)
+			_, ok := seen[next]
+			if !ok && in.Mt.InBound(next) {
+				if in.Mt.ValueAt(next) >= in.Mt.ValueAt(current.Cd)-1 {
+					if in.Mt.ValueAt(next) == 'a' {
+						return current.Dist + 1
+					}
+					seen[next] = struct{}{}
+					q.Push(qVar{next, current.Dist + 1})
+				}
+			}
+		}
+
+	}
+
+	return -1
 }
 
 func solveP1(in PuzzleInput) int {
@@ -63,10 +94,9 @@ func solveP1(in PuzzleInput) int {
 }
 
 type PuzzleInput struct {
-	Mountain [][]rune
-	Start    grid.Coordinate
-	End      grid.Coordinate
-	Mt       *grid.Grid[rune]
+	Mt    *grid.Grid[rune]
+	Start grid.Coordinate
+	End   grid.Coordinate
 }
 
 func parseInput(filename string) (PuzzleInput, error) {
@@ -79,12 +109,10 @@ func parseInput(filename string) (PuzzleInput, error) {
 	cols := len(lines[0])
 	mtGrid := grid.NewGrid[rune](rows, cols)
 
-	mountainMap := make([][]rune, 0)
 	start := grid.NewCoordinate(0, 0)
 	end := grid.NewCoordinate(0, 0)
 
 	for ln, line := range lines {
-		c := make([]rune, len(line))
 		for i, cc := range line {
 			mtGrid.SetValueAt(grid.NewCoordinate(ln, i), cc)
 			if string(cc) == "S" {
@@ -96,15 +124,12 @@ func parseInput(filename string) (PuzzleInput, error) {
 				mtGrid.SetValueAt(grid.NewCoordinate(ln, i), 'z')
 			}
 
-			c[i] = cc
 		}
-		mountainMap = append(mountainMap, c)
 	}
 
 	return PuzzleInput{
-		Mountain: mountainMap,
-		Start:    start,
-		End:      end,
-		Mt:       mtGrid,
+		Start: start,
+		End:   end,
+		Mt:    mtGrid,
 	}, nil
 }
