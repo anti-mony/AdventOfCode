@@ -42,11 +42,11 @@ func (v Value) String() string {
 }
 
 type Pair struct {
-	First, Second Value
+	Left, Right Value
 }
 
 func (p Pair) String() string {
-	return fmt.Sprintf("First : %v\nSecond: %v\n", p.First, p.Second)
+	return fmt.Sprintf("First : %v\nSecond: %v\n", p.Left, p.Right)
 }
 
 func parseInput(filename string) ([]Pair, error) {
@@ -58,8 +58,8 @@ func parseInput(filename string) ([]Pair, error) {
 	result := make([]Pair, 0)
 	for i := 0; i < len(lines); i += 3 {
 		result = append(result, Pair{
-			First:  getValueFromString(lines[i]),
-			Second: getValueFromString(lines[i+1]),
+			Left:  getValueFromString(lines[i]),
+			Right: getValueFromString(lines[i+1]),
 		})
 	}
 
