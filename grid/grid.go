@@ -93,6 +93,11 @@ func (c Coordinate) MoveTowards(d Direction) Coordinate {
 	return Coordinate{c.X + delta.X, c.Y + delta.Y}
 }
 
+func (c Coordinate) MoveNUnitsTowards(d Direction, value int) Coordinate {
+	delta := DIRECTIONS[d]
+	return Coordinate{c.X + delta.X*value, c.Y + delta.Y*value}
+}
+
 func (c Coordinate) DistanceFrom(d Coordinate) int {
 	x2 := (c.X - d.X) * (c.X - d.X)
 	y2 := (c.Y - d.Y) * (c.Y - d.Y)
