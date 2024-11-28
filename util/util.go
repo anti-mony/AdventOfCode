@@ -60,6 +60,10 @@ func StringToNumber[T string | rune](n T) int {
 	return res
 }
 
+func DelimitedStringOfNumbersToIntSlice(in string) ([]int, error) {
+	return SpaceSeparatedStringOfNumbersToIntSlice(in)
+}
+
 func SpaceSeparatedStringOfNumbersToIntSlice(in string) ([]int, error) {
 	result := make([]int, 0)
 

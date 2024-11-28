@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"math"
 	"strings"
+
+	"advent.of.code/util"
 )
 
 //go:generate stringer -type=Direction
@@ -109,11 +111,15 @@ func (c Coordinate) String() string {
 	return fmt.Sprintf("(%d, %d)", c.X, c.Y)
 }
 
-type Grid[T any] struct {
+func (c Coordinate) Ptr() *Coordinate {
+	return &c
+}
+
+type Grid[T comparable] struct {
 	store [][]T
 }
 
-func NewGrid[T any](rows, columns int) *Grid[T] {
+func NewGrid[T comparable](rows, columns int) *Grid[T] {
 	grid := &Grid[T]{
 		store: make([][]T, rows),
 	}
@@ -122,6 +128,21 @@ func NewGrid[T any](rows, columns int) *Grid[T] {
 	}
 
 	return grid
+}
+
+func NewIntGridFromStringSlice(input []string) (*Grid[int], error) {
+	rows := len(input)
+	grid := &Grid[int]{
+		store: make([][]int, rows),
+	}
+	var err error
+	for idx := range grid.store {
+		grid.store[idx], err = util.DelimitedStringOfNumbersToIntSlice(input[idx])
+		if err != nil {
+			return nil, err
+		}
+	}
+	return grid, nil
 }
 
 func (g *Grid[T]) Dimensions() (int, int) {
@@ -150,7 +171,33 @@ func (g *Grid[T]) ValueAt(c Coordinate) T {
 
 func (g *Grid[T]) SetValueAt(c Coordinate, v T) {
 	if !g.InBound(c) {
-		panic("")
+		panic("cannot set value in nil grid")
 	}
 	g.store[c.X][c.Y] = v
+}
+
+func (g *Grid[T]) Find(val T) *Coordinate {
+	if g == nil {
+		panic("cannot find in nil grid")
+	}
+	for i := 0; i < len(g.store); i++ {
+		for j := 0; j < len(g.store[i]); j++ {
+			if g.store[i][j] == val {
+				return NewCoordinate(i, j).Ptr()
+			}
+		}
+	}
+	return nil
+}
+
+func (g *Grid[T]) Print() {
+	if g == nil {
+		fmt.Println("<nil>")
+	}
+	for i := 0; i < len(g.store); i++ {
+		for j := 0; j < len(g.store[i]); j++ {
+			fmt.Printf("%3v ", g.ValueAt(NewCoordinate(i, j)))
+		}
+		fmt.Println()
+	}
 }
