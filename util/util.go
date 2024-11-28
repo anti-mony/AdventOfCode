@@ -2,6 +2,7 @@ package util
 
 import (
 	"bufio"
+	"math"
 	"os"
 	"regexp"
 	"strconv"
@@ -49,9 +50,10 @@ func IsStringNumber(c string) bool {
 	return IsCharNumber(r[0])
 }
 
-func StringToNumber(n string) int {
-	n = strings.TrimSpace(n)
-	res, err := strconv.Atoi(n)
+func StringToNumber[T string | rune](n T) int {
+	sn := string(n)
+	sn = strings.TrimSpace(sn)
+	res, err := strconv.Atoi(sn)
 	if err != nil {
 		return 0
 	}
@@ -79,4 +81,15 @@ func CopyStringToIntMap(in map[string]int) map[string]int {
 		result[k] = v
 	}
 	return result
+}
+
+func ConvertBinaryStringToNumber(input string) int {
+	result := float64(0)
+	N := len(input) - 1
+
+	for i, c := range input {
+		result += math.Pow(2, float64(N-i)) * float64(StringToNumber(c))
+	}
+
+	return int(result)
 }
