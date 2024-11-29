@@ -1,16 +1,17 @@
 #!/bin/bash
 
-if [ -z "$1" ]
+if [ -z "$1" ] || [ -z "$2" ]
   then
     echo "question number is a required argument"
-    echo "usage: initQuestion <qN>"
-    echo example: ./initQuestion q6
+    echo "usage: initQuestion YYYY:int DAY:int"
+    echo "example: ./initQuestion 2021 6"
     exit 1
 fi
 
-mkdir $1
-cd $1
-touch input.txt input.small.txt
+basedir=$(dirname "$0")
+mkdir "$basedir/$1/q$2"
+cd "$basedir/$1/q$2"
+touch input.small.txt input.txt
 cat >main.go << EOF
 package main
 
@@ -39,3 +40,5 @@ func parseInput(filename string) ([]string, error) {
 	return lines, nil
 }
 EOF
+
+session=

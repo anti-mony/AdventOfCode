@@ -97,3 +97,10 @@ func ConvertBinaryStringToNumber(input string) int {
 
 	return int(result)
 }
+
+func Abs[T int | float64](v T) T {
+	if v < 0 {
+		return -1 * v
+	}
+	return v
+}

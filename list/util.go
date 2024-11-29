@@ -1,5 +1,7 @@
 package list
 
+import "cmp"
+
 // Dedupe dedpulicates and returns a new list
 func Dedupe[T string | int | float64 | float32](inp []T) []T {
 	seen := make(map[T]bool)
@@ -30,11 +32,26 @@ func Intersection[T string | int | float64 | rune](l1 []T, l2 []T) []T {
 	return result
 }
 
-func Sum[T int | float32 | float64](l []T) T {
+func Sum[T cmp.Ordered](l []T) T {
 	result := T(0)
 	for _, v := range l {
 		result += v
 	}
 
 	return result
+}
+
+func Min[T cmp.Ordered](l []T) (T, int) {
+	if len(l) < 1 {
+		panic("list must not be empty")
+	}
+	idx := 0
+	result := l[0]
+	for i, v := range l {
+		if v < result {
+			result = v
+			idx = i
+		}
+	}
+	return result, idx
 }
