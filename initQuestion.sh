@@ -18,12 +18,18 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"advent.of.code/util"
 )
 
 func main() {
-	inp, err := parseInput("input.small.txt")
+	filename := "input.small.txt"
+	if len(os.Args) > 1 {
+		filename = os.Args[1]
+	}
+
+	inp, err := parseInput(filename)
 	if err != nil {
 		log.Fatal(err)
 	}
