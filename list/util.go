@@ -29,3 +29,12 @@ func Intersection[T string | int | float64 | rune](l1 []T, l2 []T) []T {
 
 	return result
 }
+
+func Sum[T int | float32 | float64](l []T) T {
+	result := T(0)
+	for _, v := range l {
+		result += v
+	}
+
+	return result
+}
