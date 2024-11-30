@@ -1,10 +1,13 @@
 package list
 
+import "fmt"
+
 type Stack[T any] interface {
 	Push(in T)
 	Pop() T
 	Peek() T
 	Len() int
+	Print()
 }
 
 type stack[T any] struct {
@@ -40,4 +43,11 @@ func (s *stack[T]) Peek() T {
 
 func (s *stack[T]) Len() int {
 	return len(s.store)
+}
+
+func (s *stack[T]) Print() {
+	for _, v := range s.store {
+		fmt.Printf("%v ", v)
+	}
+	fmt.Println()
 }

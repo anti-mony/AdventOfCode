@@ -119,3 +119,13 @@ func Abs[T int | float64](v T) T {
 	}
 	return v
 }
+
+func StringToCharSlice(s string) []string {
+	r := make([]string, len(s))
+
+	for i, c := range s {
+		r[i] = string(c)
+	}
+
+	return r
+}
