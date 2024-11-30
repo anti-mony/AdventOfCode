@@ -77,6 +77,13 @@ var DIRECTIONS = map[Direction]Coordinate{
 	DirectionSouthWest: _southWest,
 }
 
+var DIRECTIONS_STRAIGHT = map[Direction]Coordinate{
+	DirectionNorth: _north,
+	DirectionEast:  _east,
+	DirectionSouth: _south,
+	DirectionWest:  _west,
+}
+
 type Coordinate struct {
 	X int
 	Y int
@@ -130,7 +137,7 @@ func NewGrid[T comparable](rows, columns int) *Grid[T] {
 	return grid
 }
 
-func NewIntGridFromStringSlice(input []string) (*Grid[int], error) {
+func NewIntGridFromDelimitedStringSlice(input []string) (*Grid[int], error) {
 	rows := len(input)
 	grid := &Grid[int]{
 		store: make([][]int, rows),
@@ -138,6 +145,21 @@ func NewIntGridFromStringSlice(input []string) (*Grid[int], error) {
 	var err error
 	for idx := range grid.store {
 		grid.store[idx], err = util.DelimitedStringOfNumbersToIntSlice(input[idx])
+		if err != nil {
+			return nil, err
+		}
+	}
+	return grid, nil
+}
+
+func NewIntGridFromStringSlice(input []string) (*Grid[int], error) {
+	rows := len(input)
+	grid := &Grid[int]{
+		store: make([][]int, rows),
+	}
+	var err error
+	for idx := range grid.store {
+		grid.store[idx], err = util.StringOfNumbersToIntSlice(input[idx])
 		if err != nil {
 			return nil, err
 		}

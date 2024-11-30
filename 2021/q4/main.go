@@ -125,7 +125,7 @@ func parseInput(filename string) ([]*grid.Grid[int], []int, error) {
 	boards := make([]*grid.Grid[int], 0)
 	nBoard := 0
 	for i := 2; i+nBoard < len(lines); i += 5 {
-		board, err := grid.NewIntGridFromStringSlice(lines[i+nBoard : i+boardSize+nBoard])
+		board, err := grid.NewIntGridFromDelimitedStringSlice(lines[i+nBoard : i+boardSize+nBoard])
 		if err != nil {
 			return nil, nil, err
 		}

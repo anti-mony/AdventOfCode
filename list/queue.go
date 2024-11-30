@@ -46,6 +46,7 @@ func (s *queue[T]) Len() int {
 
 func (s *queue[T]) Print() {
 	for _, v := range s.store {
-		fmt.Printf("%v \n", v)
+		fmt.Printf("%v ", v)
 	}
+	fmt.Println()
 }

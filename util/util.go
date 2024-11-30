@@ -79,6 +79,21 @@ func SpaceSeparatedStringOfNumbersToIntSlice(in string) ([]int, error) {
 	return result, nil
 }
 
+func StringOfNumbersToIntSlice(in string) ([]int, error) {
+	result := make([]int, 0)
+
+	re := regexp.MustCompile("[0-9]")
+
+	for _, number := range re.FindAllString(in, -1) {
+		n, err := strconv.Atoi(number)
+		if err != nil {
+			return nil, err
+		}
+		result = append(result, n)
+	}
+	return result, nil
+}
+
 func CopyStringToIntMap(in map[string]int) map[string]int {
 	result := make(map[string]int)
 	for k, v := range in {
