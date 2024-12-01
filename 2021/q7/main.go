@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 	"math"
+	"slices"
 
-	"advent.of.code/list"
 	"advent.of.code/util"
 )
 
@@ -43,7 +43,7 @@ func solveQ1(input []int) int {
 		costs = append(costs, cost)
 	}
 
-	minVal, _ := list.Min(costs)
+	minVal := slices.Min(costs)
 
 	return minVal + minP
 }
@@ -72,7 +72,7 @@ func solveQ2(input []int) int {
 		costs = append(costs, cost)
 	}
 
-	minVal, _ := list.Min(costs)
+	minVal := slices.Min(costs)
 
 	return minVal + minP
 }

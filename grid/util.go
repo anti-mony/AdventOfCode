@@ -1,9 +1,12 @@
 package grid
 
-import "fmt"
+import (
+	"cmp"
+	"fmt"
+)
 
-// PrintGrid prints a 2D array
-func PrintGrid[T string | int](in [][]T) {
+// PrintMatrix prints a 2D array
+func PrintMatrix[T cmp.Ordered](in [][]T) {
 	fmt.Println()
 	for i := 0; i < len(in); i++ {
 		for j := 0; j < len(in[i]); j++ {
@@ -14,8 +17,8 @@ func PrintGrid[T string | int](in [][]T) {
 	fmt.Println()
 }
 
-// CopyGrid copies a 2D array
-func CopyGrid[T string | int](in [][]T) [][]T {
+// CopyMatrix copies a 2D array
+func CopyMatrix[T cmp.Ordered](in [][]T) [][]T {
 	result := make([][]T, len(in))
 	for i := 0; i < len(in); i++ {
 		row := make([]T, len(in[i]))
@@ -26,7 +29,7 @@ func CopyGrid[T string | int](in [][]T) [][]T {
 }
 
 // AreEqual compares two grid and returns a bool
-func AreEqual[T string | int](a [][]T, b [][]T) bool {
+func AreEqual[T cmp.Ordered](a [][]T, b [][]T) bool {
 	if len(a) != len(b) {
 		return false
 	}

@@ -1,6 +1,7 @@
 package grid
 
 import (
+	"cmp"
 	"fmt"
 	"math"
 	"strings"
@@ -122,11 +123,11 @@ func (c Coordinate) Ptr() *Coordinate {
 	return &c
 }
 
-type Grid[T comparable] struct {
+type Grid[T cmp.Ordered] struct {
 	store [][]T
 }
 
-func NewGrid[T comparable](rows, columns int) *Grid[T] {
+func NewGrid[T cmp.Ordered](rows, columns int) *Grid[T] {
 	grid := &Grid[T]{
 		store: make([][]T, rows),
 	}
@@ -198,6 +199,13 @@ func (g *Grid[T]) SetValueAt(c Coordinate, v T) {
 	g.store[c.X][c.Y] = v
 }
 
+func (g *Grid[T]) IncrementValueAt(c Coordinate, v T) {
+	if !g.InBound(c) {
+		panic("cannot set value in nil grid")
+	}
+	g.store[c.X][c.Y] += v
+}
+
 func (g *Grid[T]) Find(val T) *Coordinate {
 	if g == nil {
 		panic("cannot find in nil grid")
@@ -213,13 +221,8 @@ func (g *Grid[T]) Find(val T) *Coordinate {
 }
 
 func (g *Grid[T]) Print() {
-	if g == nil {
+	if g == nil || g.store == nil {
 		fmt.Println("<nil>")
 	}
-	for i := 0; i < len(g.store); i++ {
-		for j := 0; j < len(g.store[i]); j++ {
-			fmt.Printf("%3v ", g.ValueAt(NewCoordinate(i, j)))
-		}
-		fmt.Println()
-	}
+	PrintMatrix(g.store)
 }
