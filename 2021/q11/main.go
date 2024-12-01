@@ -24,14 +24,10 @@ func main() {
 		log.Fatal(err)
 	}
 
+	inpQ2 := inp.Clone()
+
 	fmt.Println("Answer Q1 ", Q1(inp, 100))
-
-	inp, err = parseInput(filename)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("Answer Q2 ", Q2(inp)+1)
+	fmt.Println("Answer Q2 ", Q2(inpQ2)+1)
 }
 
 func Q1(energies *grid.Grid[int], steps int) int {

@@ -224,5 +224,11 @@ func (g *Grid[T]) Print() {
 	if g == nil || g.store == nil {
 		fmt.Println("<nil>")
 	}
-	PrintMatrix(g.store)
+	util.PrintMatrix(g.store)
+}
+
+func (g *Grid[T]) Clone() *Grid[T] {
+	return &Grid[T]{
+		store: util.CopyMatrix(g.store),
+	}
 }
