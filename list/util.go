@@ -33,11 +33,7 @@ func Intersection[T string | int | float64 | rune](l1 []T, l2 []T) []T {
 func Frequency[T comparable](l []T) map[T]int {
 	freq := map[T]int{}
 	for _, item := range l {
-		if count, found := freq[item]; found {
-			freq[item] = count + 1
-		} else {
-			freq[item] = 1
-		}
+		freq[item] = freq[item] + 1
 	}
 	return freq
 }
