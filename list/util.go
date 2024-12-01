@@ -55,3 +55,15 @@ func Min[T cmp.Ordered](l []T) (T, int) {
 	}
 	return result, idx
 }
+
+func Frequency[T comparable](l []T) map[T]int {
+	freq := map[T]int{}
+	for _, item := range l {
+		if count, found := freq[item]; found {
+			freq[item] = count + 1
+		} else {
+			freq[item] = 1
+		}
+	}
+	return freq
+}

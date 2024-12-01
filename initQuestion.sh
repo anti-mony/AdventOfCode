@@ -9,7 +9,7 @@ if [ -z "$1" ] || [ -z "$2" ]
 fi
 
 basedir=$(dirname "$0")
-mkdir "$basedir/$1/q$2"
+mkdir -p "$basedir/$1/q$2"
 cd "$basedir/$1/q$2"
 touch input.small.txt input.txt
 cat >main.go << EOF
