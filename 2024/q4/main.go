@@ -62,12 +62,14 @@ func Q2(inp [][]string) int {
 
 	for i := range len(inp) {
 		for j := range len(inp[i]) {
+			// just check around A the 4 possible options
 			if inp[i][j] == "A" {
-				tli, tlj := i-1, j-1
-				tri, trj := i-1, j+1
-				bri, brj := i+1, j+1
-				bli, blj := i+1, j-1
+				tli, tlj := i-1, j-1 // top left
+				tri, trj := i-1, j+1 // top right
+				bri, brj := i+1, j+1 // bottom right
+				bli, blj := i+1, j-1 // bottom left
 
+				// skip when any corner is out of bound
 				if !inBound(tli, tlj, len(inp), len(inp[i])) ||
 					!inBound(tri, trj, len(inp), len(inp[i])) ||
 					!inBound(bli, blj, len(inp), len(inp[i])) ||
@@ -75,6 +77,7 @@ func Q2(inp [][]string) int {
 					continue
 				}
 
+				// 4 cases
 				if inp[tli][tlj] == "M" && inp[tri][trj] == "M" && inp[bri][brj] == "S" && inp[bli][blj] == "S" {
 					xmas++
 				} else if inp[tli][tlj] == "S" && inp[tri][trj] == "M" && inp[bri][brj] == "M" && inp[bli][blj] == "S" {
