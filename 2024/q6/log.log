@@ -1,0 +1,626 @@
+start 6 4
+55
+---------S-----------
+6 5 DirectionEast 5 4 DirectionNorth 6 4
+---------E-----------
+---------S-----------
+6 6 DirectionEast 5 4 DirectionNorth 6 4
+---------E-----------
+---------S-----------
+6 7 DirectionEast 5 4 DirectionNorth 6 4
+---------E-----------
+---------S-----------
+6 8 DirectionEast 5 4 DirectionNorth 6 4
+---------E-----------
+---------S-----------
+6 9 DirectionEast 5 4 DirectionNorth 6 4
+---------E-----------
+---------S-----------
+5 5 DirectionEast 4 4 DirectionNorth 5 4
+---------E-----------
+---------S-----------
+5 6 DirectionEast 4 4 DirectionNorth 5 4
+---------E-----------
+---------S-----------
+5 7 DirectionEast 4 4 DirectionNorth 5 4
+---------E-----------
+---------S-----------
+5 8 DirectionEast 4 4 DirectionNorth 5 4
+---------E-----------
+---------S-----------
+5 9 DirectionEast 4 4 DirectionNorth 5 4
+---------E-----------
+---------S-----------
+4 5 DirectionEast 3 4 DirectionNorth 4 4
+4 5 DirectionEast 3 4
+---------S-----------
+3 5 DirectionEast 2 4 DirectionNorth 3 4
+---------E-----------
+---------S-----------
+3 6 DirectionEast 2 4 DirectionNorth 3 4
+---------E-----------
+---------S-----------
+3 7 DirectionEast 2 4 DirectionNorth 3 4
+---------E-----------
+---------S-----------
+3 8 DirectionEast 2 4 DirectionNorth 3 4
+---------E-----------
+---------S-----------
+3 9 DirectionEast 2 4 DirectionNorth 3 4
+---------E-----------
+---------S-----------
+2 5 DirectionEast 1 4 DirectionNorth 2 4
+---------E-----------
+---------S-----------
+2 6 DirectionEast 1 4 DirectionNorth 2 4
+---------E-----------
+---------S-----------
+2 7 DirectionEast 1 4 DirectionNorth 2 4
+---------E-----------
+---------S-----------
+2 8 DirectionEast 1 4 DirectionNorth 2 4
+---------E-----------
+---------S-----------
+2 9 DirectionEast 1 4 DirectionNorth 2 4
+---------E-----------
+---------S-----------
+2 4 DirectionSouth 1 5 DirectionEast 1 4
+---------E-----------
+---------S-----------
+3 4 DirectionSouth 1 5 DirectionEast 1 4
+---------E-----------
+---------S-----------
+4 4 DirectionSouth 1 5 DirectionEast 1 4
+---------E-----------
+---------S-----------
+5 4 DirectionSouth 1 5 DirectionEast 1 4
+---------E-----------
+---------S-----------
+6 4 DirectionSouth 1 5 DirectionEast 1 4
+---------E-----------
+---------S-----------
+7 4 DirectionSouth 1 5 DirectionEast 1 4
+---------E-----------
+---------S-----------
+8 4 DirectionSouth 1 5 DirectionEast 1 4
+---------E-----------
+---------S-----------
+9 4 DirectionSouth 1 5 DirectionEast 1 4
+---------E-----------
+---------S-----------
+2 5 DirectionSouth 1 6 DirectionEast 1 5
+---------E-----------
+---------S-----------
+3 5 DirectionSouth 1 6 DirectionEast 1 5
+---------E-----------
+---------S-----------
+4 5 DirectionSouth 1 6 DirectionEast 1 5
+---------E-----------
+---------S-----------
+5 5 DirectionSouth 1 6 DirectionEast 1 5
+---------E-----------
+---------S-----------
+6 5 DirectionSouth 1 6 DirectionEast 1 5
+---------E-----------
+---------S-----------
+7 5 DirectionSouth 1 6 DirectionEast 1 5
+---------E-----------
+---------S-----------
+8 5 DirectionSouth 1 6 DirectionEast 1 5
+---------E-----------
+---------S-----------
+9 5 DirectionSouth 1 6 DirectionEast 1 5
+---------E-----------
+---------S-----------
+2 6 DirectionSouth 1 7 DirectionEast 1 6
+---------E-----------
+---------S-----------
+3 6 DirectionSouth 1 7 DirectionEast 1 6
+---------E-----------
+---------S-----------
+4 6 DirectionSouth 1 7 DirectionEast 1 6
+4 6 DirectionSouth 1 7
+---------S-----------
+2 7 DirectionSouth 1 8 DirectionEast 1 7
+---------E-----------
+---------S-----------
+3 7 DirectionSouth 1 8 DirectionEast 1 7
+---------E-----------
+---------S-----------
+1 7 DirectionWest 2 8 DirectionSouth 1 8
+---------E-----------
+---------S-----------
+1 6 DirectionWest 2 8 DirectionSouth 1 8
+---------E-----------
+---------S-----------
+1 5 DirectionWest 2 8 DirectionSouth 1 8
+---------E-----------
+---------S-----------
+1 4 DirectionWest 2 8 DirectionSouth 1 8
+---------E-----------
+---------S-----------
+1 3 DirectionWest 2 8 DirectionSouth 1 8
+---------E-----------
+---------S-----------
+1 2 DirectionWest 2 8 DirectionSouth 1 8
+---------E-----------
+---------S-----------
+1 1 DirectionWest 2 8 DirectionSouth 1 8
+---------E-----------
+---------S-----------
+1 0 DirectionWest 2 8 DirectionSouth 1 8
+---------E-----------
+---------S-----------
+2 7 DirectionWest 3 8 DirectionSouth 2 8
+---------E-----------
+---------S-----------
+2 6 DirectionWest 3 8 DirectionSouth 2 8
+---------E-----------
+---------S-----------
+2 5 DirectionWest 3 8 DirectionSouth 2 8
+---------E-----------
+---------S-----------
+2 4 DirectionWest 3 8 DirectionSouth 2 8
+---------E-----------
+---------S-----------
+2 3 DirectionWest 3 8 DirectionSouth 2 8
+---------E-----------
+---------S-----------
+2 2 DirectionWest 3 8 DirectionSouth 2 8
+---------E-----------
+---------S-----------
+2 1 DirectionWest 3 8 DirectionSouth 2 8
+---------E-----------
+---------S-----------
+2 0 DirectionWest 3 8 DirectionSouth 2 8
+---------E-----------
+---------S-----------
+3 7 DirectionWest 4 8 DirectionSouth 3 8
+---------E-----------
+---------S-----------
+3 6 DirectionWest 4 8 DirectionSouth 3 8
+---------E-----------
+---------S-----------
+3 5 DirectionWest 4 8 DirectionSouth 3 8
+---------E-----------
+---------S-----------
+3 4 DirectionWest 4 8 DirectionSouth 3 8
+---------E-----------
+---------S-----------
+3 3 DirectionWest 4 8 DirectionSouth 3 8
+---------E-----------
+---------S-----------
+5 7 DirectionWest 6 8 DirectionSouth 5 8
+---------E-----------
+---------S-----------
+5 6 DirectionWest 6 8 DirectionSouth 5 8
+---------E-----------
+---------S-----------
+5 5 DirectionWest 6 8 DirectionSouth 5 8
+---------E-----------
+---------S-----------
+5 4 DirectionWest 6 8 DirectionSouth 5 8
+---------E-----------
+---------S-----------
+5 3 DirectionWest 6 8 DirectionSouth 5 8
+---------E-----------
+---------S-----------
+5 2 DirectionWest 6 8 DirectionSouth 5 8
+---------E-----------
+---------S-----------
+5 1 DirectionWest 6 8 DirectionSouth 5 8
+---------E-----------
+---------S-----------
+5 0 DirectionWest 6 8 DirectionSouth 5 8
+---------E-----------
+---------S-----------
+5 8 DirectionNorth 6 7 DirectionWest 6 8
+---------E-----------
+---------S-----------
+4 8 DirectionNorth 6 7 DirectionWest 6 8
+---------E-----------
+---------S-----------
+3 8 DirectionNorth 6 7 DirectionWest 6 8
+---------E-----------
+---------S-----------
+2 8 DirectionNorth 6 7 DirectionWest 6 8
+---------E-----------
+---------S-----------
+1 8 DirectionNorth 6 7 DirectionWest 6 8
+---------E-----------
+---------S-----------
+0 8 DirectionNorth 6 7 DirectionWest 6 8
+---------E-----------
+---------S-----------
+5 7 DirectionNorth 6 6 DirectionWest 6 7
+---------E-----------
+---------S-----------
+5 6 DirectionNorth 6 5 DirectionWest 6 6
+---------E-----------
+---------S-----------
+4 6 DirectionNorth 6 5 DirectionWest 6 6
+---------E-----------
+---------S-----------
+3 6 DirectionNorth 6 5 DirectionWest 6 6
+---------E-----------
+---------S-----------
+2 6 DirectionNorth 6 5 DirectionWest 6 6
+---------E-----------
+---------S-----------
+1 6 DirectionNorth 6 5 DirectionWest 6 6
+---------E-----------
+---------S-----------
+0 6 DirectionNorth 6 5 DirectionWest 6 6
+---------E-----------
+---------S-----------
+5 5 DirectionNorth 6 4 DirectionWest 6 5
+---------E-----------
+---------S-----------
+4 5 DirectionNorth 6 4 DirectionWest 6 5
+---------E-----------
+---------S-----------
+3 5 DirectionNorth 6 4 DirectionWest 6 5
+---------E-----------
+---------S-----------
+2 5 DirectionNorth 6 4 DirectionWest 6 5
+---------E-----------
+---------S-----------
+1 5 DirectionNorth 6 4 DirectionWest 6 5
+---------E-----------
+---------S-----------
+0 5 DirectionNorth 6 4 DirectionWest 6 5
+---------E-----------
+---------S-----------
+5 4 DirectionNorth 6 3 DirectionWest 6 4
+5 4 DirectionNorth 6 3
+---------S-----------
+5 3 DirectionNorth 6 2 DirectionWest 6 3
+---------E-----------
+---------S-----------
+4 3 DirectionNorth 6 2 DirectionWest 6 3
+---------E-----------
+---------S-----------
+3 3 DirectionNorth 6 2 DirectionWest 6 3
+---------E-----------
+---------S-----------
+2 3 DirectionNorth 6 2 DirectionWest 6 3
+---------E-----------
+---------S-----------
+1 3 DirectionNorth 6 2 DirectionWest 6 3
+---------E-----------
+---------S-----------
+0 3 DirectionNorth 6 2 DirectionWest 6 3
+---------E-----------
+---------S-----------
+6 3 DirectionEast 5 2 DirectionNorth 6 2
+---------E-----------
+---------S-----------
+6 4 DirectionEast 5 2 DirectionNorth 6 2
+---------E-----------
+---------S-----------
+6 5 DirectionEast 5 2 DirectionNorth 6 2
+---------E-----------
+---------S-----------
+6 6 DirectionEast 5 2 DirectionNorth 6 2
+---------E-----------
+---------S-----------
+6 7 DirectionEast 5 2 DirectionNorth 6 2
+---------E-----------
+---------S-----------
+6 8 DirectionEast 5 2 DirectionNorth 6 2
+---------E-----------
+---------S-----------
+6 9 DirectionEast 5 2 DirectionNorth 6 2
+---------E-----------
+---------S-----------
+5 3 DirectionEast 4 2 DirectionNorth 5 2
+---------E-----------
+---------S-----------
+5 4 DirectionEast 4 2 DirectionNorth 5 2
+---------E-----------
+---------S-----------
+5 5 DirectionEast 4 2 DirectionNorth 5 2
+---------E-----------
+---------S-----------
+5 6 DirectionEast 4 2 DirectionNorth 5 2
+---------E-----------
+---------S-----------
+5 7 DirectionEast 4 2 DirectionNorth 5 2
+---------E-----------
+---------S-----------
+5 8 DirectionEast 4 2 DirectionNorth 5 2
+---------E-----------
+---------S-----------
+5 9 DirectionEast 4 2 DirectionNorth 5 2
+---------E-----------
+---------S-----------
+5 2 DirectionSouth 4 3 DirectionEast 4 2
+---------E-----------
+---------S-----------
+6 2 DirectionSouth 4 3 DirectionEast 4 2
+---------E-----------
+---------S-----------
+7 2 DirectionSouth 4 3 DirectionEast 4 2
+---------E-----------
+---------S-----------
+8 2 DirectionSouth 4 3 DirectionEast 4 2
+---------E-----------
+---------S-----------
+9 2 DirectionSouth 4 3 DirectionEast 4 2
+---------E-----------
+---------S-----------
+5 3 DirectionSouth 4 4 DirectionEast 4 3
+---------E-----------
+---------S-----------
+6 3 DirectionSouth 4 4 DirectionEast 4 3
+---------E-----------
+---------S-----------
+7 3 DirectionSouth 4 4 DirectionEast 4 3
+---------E-----------
+---------S-----------
+8 3 DirectionSouth 4 4 DirectionEast 4 3
+---------E-----------
+---------S-----------
+9 3 DirectionSouth 4 4 DirectionEast 4 3
+---------E-----------
+---------S-----------
+5 4 DirectionSouth 4 5 DirectionEast 4 4
+---------E-----------
+---------S-----------
+6 4 DirectionSouth 4 5 DirectionEast 4 4
+---------E-----------
+---------S-----------
+7 4 DirectionSouth 4 5 DirectionEast 4 4
+---------E-----------
+---------S-----------
+8 4 DirectionSouth 4 5 DirectionEast 4 4
+---------E-----------
+---------S-----------
+9 4 DirectionSouth 4 5 DirectionEast 4 4
+---------E-----------
+---------S-----------
+5 5 DirectionSouth 4 6 DirectionEast 4 5
+---------E-----------
+---------S-----------
+6 5 DirectionSouth 4 6 DirectionEast 4 5
+---------E-----------
+---------S-----------
+7 5 DirectionSouth 4 6 DirectionEast 4 5
+---------E-----------
+---------S-----------
+8 5 DirectionSouth 4 6 DirectionEast 4 5
+---------E-----------
+---------S-----------
+9 5 DirectionSouth 4 6 DirectionEast 4 5
+---------E-----------
+---------S-----------
+4 5 DirectionWest 5 6 DirectionSouth 4 6
+---------E-----------
+---------S-----------
+4 4 DirectionWest 5 6 DirectionSouth 4 6
+---------E-----------
+---------S-----------
+4 3 DirectionWest 5 6 DirectionSouth 4 6
+---------E-----------
+---------S-----------
+4 2 DirectionWest 5 6 DirectionSouth 4 6
+---------E-----------
+---------S-----------
+4 1 DirectionWest 5 6 DirectionSouth 4 6
+---------E-----------
+---------S-----------
+4 0 DirectionWest 5 6 DirectionSouth 4 6
+---------E-----------
+---------S-----------
+5 5 DirectionWest 6 6 DirectionSouth 5 6
+---------E-----------
+---------S-----------
+5 4 DirectionWest 6 6 DirectionSouth 5 6
+---------E-----------
+---------S-----------
+5 3 DirectionWest 6 6 DirectionSouth 5 6
+---------E-----------
+---------S-----------
+5 2 DirectionWest 6 6 DirectionSouth 5 6
+---------E-----------
+---------S-----------
+5 1 DirectionWest 6 6 DirectionSouth 5 6
+---------E-----------
+---------S-----------
+5 0 DirectionWest 6 6 DirectionSouth 5 6
+---------E-----------
+---------S-----------
+6 5 DirectionWest 7 6 DirectionSouth 6 6
+6 5 DirectionWest 7 6
+---------S-----------
+7 5 DirectionWest 8 6 DirectionSouth 7 6
+---------E-----------
+---------S-----------
+7 4 DirectionWest 8 6 DirectionSouth 7 6
+---------E-----------
+---------S-----------
+7 3 DirectionWest 8 6 DirectionSouth 7 6
+---------E-----------
+---------S-----------
+7 2 DirectionWest 8 6 DirectionSouth 7 6
+---------E-----------
+---------S-----------
+7 1 DirectionWest 8 6 DirectionSouth 7 6
+---------E-----------
+---------S-----------
+7 0 DirectionWest 8 6 DirectionSouth 7 6
+---------E-----------
+---------S-----------
+7 6 DirectionNorth 8 5 DirectionWest 8 6
+---------E-----------
+---------S-----------
+6 6 DirectionNorth 8 5 DirectionWest 8 6
+---------E-----------
+---------S-----------
+5 6 DirectionNorth 8 5 DirectionWest 8 6
+---------E-----------
+---------S-----------
+4 6 DirectionNorth 8 5 DirectionWest 8 6
+---------E-----------
+---------S-----------
+3 6 DirectionNorth 8 5 DirectionWest 8 6
+---------E-----------
+---------S-----------
+2 6 DirectionNorth 8 5 DirectionWest 8 6
+---------E-----------
+---------S-----------
+1 6 DirectionNorth 8 5 DirectionWest 8 6
+---------E-----------
+---------S-----------
+0 6 DirectionNorth 8 5 DirectionWest 8 6
+---------E-----------
+---------S-----------
+7 5 DirectionNorth 8 4 DirectionWest 8 5
+---------E-----------
+---------S-----------
+6 5 DirectionNorth 8 4 DirectionWest 8 5
+---------E-----------
+---------S-----------
+5 5 DirectionNorth 8 4 DirectionWest 8 5
+---------E-----------
+---------S-----------
+4 5 DirectionNorth 8 4 DirectionWest 8 5
+---------E-----------
+---------S-----------
+3 5 DirectionNorth 8 4 DirectionWest 8 5
+---------E-----------
+---------S-----------
+2 5 DirectionNorth 8 4 DirectionWest 8 5
+---------E-----------
+---------S-----------
+1 5 DirectionNorth 8 4 DirectionWest 8 5
+---------E-----------
+---------S-----------
+0 5 DirectionNorth 8 4 DirectionWest 8 5
+---------E-----------
+---------S-----------
+7 4 DirectionNorth 8 3 DirectionWest 8 4
+---------E-----------
+---------S-----------
+6 4 DirectionNorth 8 3 DirectionWest 8 4
+6 4 DirectionNorth 8 3
+---------S-----------
+7 3 DirectionNorth 8 2 DirectionWest 8 3
+---------E-----------
+---------S-----------
+6 3 DirectionNorth 8 2 DirectionWest 8 3
+---------E-----------
+---------S-----------
+5 3 DirectionNorth 8 2 DirectionWest 8 3
+---------E-----------
+---------S-----------
+4 3 DirectionNorth 8 2 DirectionWest 8 3
+---------E-----------
+---------S-----------
+3 3 DirectionNorth 8 2 DirectionWest 8 3
+---------E-----------
+---------S-----------
+2 3 DirectionNorth 8 2 DirectionWest 8 3
+---------E-----------
+---------S-----------
+1 3 DirectionNorth 8 2 DirectionWest 8 3
+---------E-----------
+---------S-----------
+0 3 DirectionNorth 8 2 DirectionWest 8 3
+---------E-----------
+---------S-----------
+7 2 DirectionNorth 8 1 DirectionWest 8 2
+---------E-----------
+---------S-----------
+6 2 DirectionNorth 8 1 DirectionWest 8 2
+6 2 DirectionNorth 8 1
+---------S-----------
+8 2 DirectionEast 7 1 DirectionNorth 8 1
+---------E-----------
+---------S-----------
+8 3 DirectionEast 7 1 DirectionNorth 8 1
+---------E-----------
+---------S-----------
+8 4 DirectionEast 7 1 DirectionNorth 8 1
+---------E-----------
+---------S-----------
+8 5 DirectionEast 7 1 DirectionNorth 8 1
+---------E-----------
+---------S-----------
+8 6 DirectionEast 7 1 DirectionNorth 8 1
+---------E-----------
+---------S-----------
+8 7 DirectionEast 7 1 DirectionNorth 8 1
+---------E-----------
+---------S-----------
+8 8 DirectionEast 7 1 DirectionNorth 8 1
+---------E-----------
+---------S-----------
+8 9 DirectionEast 7 1 DirectionNorth 8 1
+---------E-----------
+---------S-----------
+8 1 DirectionSouth 7 2 DirectionEast 7 1
+---------E-----------
+---------S-----------
+9 1 DirectionSouth 7 2 DirectionEast 7 1
+---------E-----------
+---------S-----------
+8 2 DirectionSouth 7 3 DirectionEast 7 2
+---------E-----------
+---------S-----------
+9 2 DirectionSouth 7 3 DirectionEast 7 2
+---------E-----------
+---------S-----------
+8 3 DirectionSouth 7 4 DirectionEast 7 3
+---------E-----------
+---------S-----------
+9 3 DirectionSouth 7 4 DirectionEast 7 3
+---------E-----------
+---------S-----------
+8 4 DirectionSouth 7 5 DirectionEast 7 4
+---------E-----------
+---------S-----------
+9 4 DirectionSouth 7 5 DirectionEast 7 4
+---------E-----------
+---------S-----------
+8 5 DirectionSouth 7 6 DirectionEast 7 5
+---------E-----------
+---------S-----------
+9 5 DirectionSouth 7 6 DirectionEast 7 5
+---------E-----------
+---------S-----------
+8 6 DirectionSouth 7 7 DirectionEast 7 6
+8 6 DirectionSouth 7 7
+---------S-----------
+7 6 DirectionWest 8 7 DirectionSouth 7 7
+---------E-----------
+---------S-----------
+7 5 DirectionWest 8 7 DirectionSouth 7 7
+---------E-----------
+---------S-----------
+7 4 DirectionWest 8 7 DirectionSouth 7 7
+---------E-----------
+---------S-----------
+7 3 DirectionWest 8 7 DirectionSouth 7 7
+---------E-----------
+---------S-----------
+7 2 DirectionWest 8 7 DirectionSouth 7 7
+---------E-----------
+---------S-----------
+7 1 DirectionWest 8 7 DirectionSouth 7 7
+---------E-----------
+---------S-----------
+7 0 DirectionWest 8 7 DirectionSouth 7 7
+---------E-----------
+---------S-----------
+8 6 DirectionWest 9 7 DirectionSouth 8 7
+8 6 DirectionWest 9 7
+(1, 7)
+(6, 3)
+(7, 6)
+(8, 3)
+(8, 1)
+(7, 7)
+(9, 7)
+(3, 4)
+8
