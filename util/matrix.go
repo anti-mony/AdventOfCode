@@ -44,3 +44,37 @@ func AreEqual[T comparable](a [][]T, b [][]T) bool {
 
 	return true
 }
+
+func ReadStringMatrixFromFile(filenme string) ([][]string, error) {
+	lines, err := GetFileAsListOfStrings(filenme)
+	if err != nil {
+		return nil, err
+	}
+
+	result := make([][]string, len(lines))
+
+	for i, line := range lines {
+		result[i] = StringToCharSlice(line)
+	}
+
+	return result, nil
+}
+
+func ReadIntMatrixFromFile(filenme string) ([][]int, error) {
+	lines, err := GetFileAsListOfStrings(filenme)
+	if err != nil {
+		return nil, err
+	}
+
+	result := make([][]int, len(lines))
+
+	for i, line := range lines {
+		nums, err := StringOfNumbersToIntSlice(line)
+		if err != nil {
+			return nil, err
+		}
+		result[i] = nums
+	}
+
+	return result, nil
+}
