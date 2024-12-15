@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"slices"
 
 	"advent.of.code/grid"
 	"advent.of.code/list"
@@ -179,13 +180,31 @@ func Q2(warehouse [][]string, movements []string) int {
 
 			blocksToMove := getBlocksToMove(warehouse, r, dir)
 
+			topLayer := map[int][]grid.Coordinate{}
+			topLayerList := []grid.Coordinate{}
+
+			for i := len(blocksToMove) - 1; i >= 0; i-- {
+				for j := 0; j < len(blocksToMove[i]); j++ {
+					topLayer[blocksToMove[i][j].Y] = append(topLayer[blocksToMove[i][j].Y], blocksToMove[i][j])
+				}
+			}
+
+			for k := range topLayer {
+				slices.SortFunc(topLayer[k], func(a, b grid.Coordinate) int {
+					if dir == grid.DirectionSouth {
+						return a.X - b.X
+					}
+					return b.X - a.X
+				})
+				topLayerList = append(topLayerList, topLayer[k][len(topLayer[k])-1])
+			}
+
 			// find empty space next to the last layer
 			canMoveBlocks := true
-			for _, b := range blocksToMove[len(blocksToMove)-1] {
+			for _, b := range topLayerList {
 				bn := b.Add(grid.DIRECTIONS[dir])
-				if !inBound(warehouse, bn) || warehouse[bn.X][bn.Y] == "#" {
+				if !inBound(warehouse, bn) || warehouse[bn.X][bn.Y] != "." {
 					canMoveBlocks = false
-					break
 				}
 			}
 
@@ -259,6 +278,7 @@ func getBlocksToMove(warehouse [][]string, robot grid.Coordinate, direction grid
 				}
 			}
 		}
+		slices.SortFunc(layer, func(a, b grid.Coordinate) int { return a.Y - b.Y })
 		result = append(result, layer)
 	}
 
