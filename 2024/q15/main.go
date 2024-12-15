@@ -23,7 +23,7 @@ func main() {
 
 	warehouse2 := util.CopyMatrix(warehouse)
 
-	fmt.Println("A1: ", Q1(warehouse, movements))
+	// fmt.Println("A1: ", Q1(warehouse, movements))
 
 	fmt.Println("A2: ", Q2(warehouse2, movements))
 }
@@ -102,7 +102,7 @@ func Q2(warehouse [][]string, movements []string) int {
 	newWarehouse := make([][]string, len(warehouse))
 	for i := 0; i < len(warehouse); i++ {
 		newWarehouse[i] = make([]string, len(warehouse[i])*2)
-		for j := 0; j < len(warehouse); j++ {
+		for j := 0; j < len(warehouse[i]); j++ {
 			if warehouse[i][j] == "@" {
 				ri, rj = i, 2*j
 				newWarehouse[i][2*j] = "@"
@@ -122,7 +122,7 @@ func Q2(warehouse [][]string, movements []string) int {
 	r := grid.NewCoordinate(ri, rj)
 
 	for _, mov := range movements {
-		util.PrintMatrix(warehouse)
+		// util.PrintMatrix(warehouse)
 		dir := movementDirection[mov]
 		n := r.Add(grid.DIRECTIONS[dir])
 		// out of bound, move on
@@ -147,14 +147,7 @@ func Q2(warehouse [][]string, movements []string) int {
 
 		// East West
 		if dir == grid.DirectionEast || dir == grid.DirectionWest {
-			// we need to keep track of two columns
-			deltaY := 1
-			if warehouse[n.X][n.Y] == "]" {
-				deltaY = -1
-			}
-
-			n := grid.NewCoordinate(n.X, n.Y+deltaY)
-
+			n := r.Add(grid.DIRECTIONS[dir])
 			// find empty space
 			for inBound(warehouse, n) {
 				if warehouse[n.X][n.Y] == "." {
@@ -186,7 +179,7 @@ func Q2(warehouse [][]string, movements []string) int {
 
 			blocksToMove := getBlocksToMove(warehouse, r, dir)
 
-			// find empty space above the last layer
+			// find empty space next to the last layer
 			canMoveBlocks := true
 			for _, b := range blocksToMove[len(blocksToMove)-1] {
 				bn := b.Add(grid.DIRECTIONS[dir])
