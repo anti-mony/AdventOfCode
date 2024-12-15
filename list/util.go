@@ -1,7 +1,7 @@
 package list
 
 // Dedupe dedpulicates and returns a new list
-func Dedupe[T string | int | float64 | float32](inp []T) []T {
+func Dedupe[T comparable](inp []T) []T {
 	seen := make(map[T]bool)
 	result := make([]T, 0)
 	for _, v := range inp {
@@ -14,7 +14,7 @@ func Dedupe[T string | int | float64 | float32](inp []T) []T {
 }
 
 // Find intersection in two lists
-func Intersection[T string | int | float64 | rune](l1 []T, l2 []T) []T {
+func Intersection[T comparable](l1 []T, l2 []T) []T {
 	seen := make(map[T]bool)
 	result := make([]T, 0)
 	for _, v := range l1 {
