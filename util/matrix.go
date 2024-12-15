@@ -78,3 +78,14 @@ func ReadIntMatrixFromFile(filenme string) ([][]int, error) {
 
 	return result, nil
 }
+
+func FindIndexMatrix[T comparable](grid [][]T, v T) (int, int) {
+	for i := 0; i < len(grid); i++ {
+		for j := 0; j < len(grid[i]); j++ {
+			if grid[i][j] == v {
+				return i, j
+			}
+		}
+	}
+	return -1, -1
+}
