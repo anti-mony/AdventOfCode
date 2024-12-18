@@ -7,7 +7,7 @@ func PrintMatrix[T comparable](in [][]T) {
 	fmt.Println()
 	for i := 0; i < len(in); i++ {
 		for j := 0; j < len(in[i]); j++ {
-			fmt.Printf("%v", in[i][j])
+			fmt.Printf("%3v", in[i][j])
 		}
 		fmt.Println()
 	}
