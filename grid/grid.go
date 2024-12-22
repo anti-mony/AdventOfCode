@@ -45,15 +45,28 @@ func (d Direction) Reverse() Direction {
 
 func DirectionFromRLUD(in string) Direction {
 	switch strings.ToUpper(in) {
-	case "R":
+	case "R", ">":
 		return DirectionEast
-	case "L":
+	case "L", "<":
 		return DirectionWest
-	case "U":
+	case "U", "^":
 		return DirectionNorth
 	}
 
 	return DirectionSouth
+}
+
+func DirectionToRLUD(in Direction) string {
+	switch in {
+	case DirectionEast:
+		return ">"
+	case DirectionWest:
+		return "<"
+	case DirectionNorth:
+		return "^"
+	}
+
+	return "v"
 }
 
 var (
@@ -113,6 +126,10 @@ func (c Coordinate) DistanceFrom(d Coordinate) int {
 	y2 := (c.Y - d.Y) * (c.Y - d.Y)
 
 	return int(math.Sqrt(float64(x2) + float64(y2)))
+}
+
+func (c Coordinate) RectilinearDistanceFrom(d Coordinate) int {
+	return util.Abs(c.X-d.X) + util.Abs(c.Y-d.Y)
 }
 
 func (c Coordinate) String() string {

@@ -1,5 +1,7 @@
 package list
 
+import "cmp"
+
 // Dedupe dedpulicates and returns a new list
 func Dedupe[T comparable](inp []T) []T {
 	seen := make(map[T]bool)
@@ -36,4 +38,14 @@ func Frequency[T comparable](l []T) map[T]int {
 		freq[item] = freq[item] + 1
 	}
 	return freq
+}
+
+func Sum[T cmp.Ordered](l []T) T {
+	var r T
+
+	for _, v := range l {
+		r += v
+	}
+
+	return r
 }

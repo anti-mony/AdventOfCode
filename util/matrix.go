@@ -1,9 +1,11 @@
 package util
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // PrintMatrix prints a 2D array
-func PrintMatrix[T comparable](in [][]T) {
+func PrintMatrix[T any](in [][]T) {
 	fmt.Println()
 	for i := 0; i < len(in); i++ {
 		for j := 0; j < len(in[i]); j++ {

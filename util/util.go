@@ -2,6 +2,7 @@ package util
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"regexp"
@@ -125,6 +126,16 @@ func StringToCharSlice(s string) []string {
 
 	for i, c := range s {
 		r[i] = string(c)
+	}
+
+	return r
+}
+
+func SliceToStringRepr[T any](s []T) string {
+	r := ""
+
+	for _, c := range s {
+		r += fmt.Sprintf("%v", c)
 	}
 
 	return r
