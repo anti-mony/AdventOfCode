@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"math"
 	"os"
 	"slices"
 	"strings"
@@ -18,7 +19,7 @@ func main() {
 		filename = os.Args[1]
 	}
 
-	codes, err := util.ReadStringMatrixFromFile(filename)
+	codes, err := util.GetFileAsListOfStrings(filename)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -81,34 +82,35 @@ var KEYPAD_P = map[string]grid.Coordinate{
 	">": grid.NewCoordinate(1, 2),
 }
 
-var numpadShortestPaths = map[CoordinatePair][][]string{}
-var keypadShortestPaths = map[CoordinatePair][][]string{}
-var result = [][]string{}
+var numpadShortestPaths = map[CoordinatePair][]string{}
+var keypadShortestPaths = map[CoordinatePair][]string{}
+var result = []string{}
 
-func Q1(codes [][]string) int {
+func Q1(codes []string) int {
 
 	FindAllPairShortestPaths(NUMPAD_P, NUMPAD, numpadShortestPaths)
 	FindAllPairShortestPaths(KEYPAD_P, KEYPAD, keypadShortestPaths)
 
 	result := 0
 	for _, code := range codes {
-		numpadPaths := util.DedupeRows(NumpadCodeToSequence(code))
-		keypadPaths := [][]string{}
-		secondKeypadPaths := [][]string{}
+		numpadPaths := list.Dedupe(NumpadCodeToSequence(code))
+		keypadPaths := []string{}
+		secondKeypadPaths := []string{}
 		for _, p := range numpadPaths {
 			r := KeypadCodeToSequence(p)
 			keypadPaths = append(keypadPaths, r...)
 		}
-		keypadPaths = util.DedupeRows(keypadPaths)
+		keypadPaths = list.Dedupe(keypadPaths)
 		for _, p := range keypadPaths {
 			r := KeypadCodeToSequence(p)
 			secondKeypadPaths = append(secondKeypadPaths, r...)
 		}
 
-		secondKeypadPaths = util.MinLengthRows(util.DedupeRows(secondKeypadPaths))
-
-		n := util.StringToNumber(strings.Join(code[:len(code)-1], ""))
-		minl := len(secondKeypadPaths[0])
+		minl := math.MaxInt
+		for _, r := range secondKeypadPaths {
+			minl = min(minl, len(r))
+		}
+		n := util.StringToNumber(code[:len(code)-1])
 		fmt.Println(code, minl, n)
 		result += n * minl
 	}
@@ -116,51 +118,51 @@ func Q1(codes [][]string) int {
 	return result
 }
 
-func NumpadCodeToSequence(code []string) [][]string {
-	result := numpadShortestPaths[CoordinatePair{Start: NUMPAD_P["A"], End: NUMPAD_P[code[0]]}]
+func NumpadCodeToSequence(code string) []string {
+	result := numpadShortestPaths[CoordinatePair{Start: NUMPAD_P["A"], End: NUMPAD_P[string(code[0])]}]
 
 	for i := 1; i < len(code); i++ {
-		start := NUMPAD_P[code[i-1]]
-		end := NUMPAD_P[code[i]]
-		new := [][]string{}
+		start := NUMPAD_P[string(code[i-1])]
+		end := NUMPAD_P[string(code[i])]
+		new := []string{}
 		for _, ep := range result {
 			for _, p := range numpadShortestPaths[CoordinatePair{Start: start, End: end}] {
-				new = append(new, append(slices.Clone(ep), p...))
+				new = append(new, ep+p)
 			}
 		}
-		result = util.DedupeRows(new)
+		result = new
 	}
 
 	return result
 }
 
-func KeypadCodeToSequence(code []string) [][]string {
-	result := keypadShortestPaths[CoordinatePair{Start: KEYPAD_P["A"], End: KEYPAD_P[code[0]]}]
+func KeypadCodeToSequence(code string) []string {
+	result := keypadShortestPaths[CoordinatePair{Start: KEYPAD_P["A"], End: KEYPAD_P[string(code[0])]}]
 
 	for i := 1; i < len(code); i++ {
-		start := KEYPAD_P[code[i-1]]
-		end := KEYPAD_P[code[i]]
-		newPaths := [][]string{}
+		start := KEYPAD_P[string(code[i-1])]
+		end := KEYPAD_P[string(code[i])]
+		newPaths := []string{}
 		for _, ep := range result {
 			for _, p := range keypadShortestPaths[CoordinatePair{Start: start, End: end}] {
-				newPaths = append(newPaths, append(slices.Clone(ep), p...))
+				newPaths = append(newPaths, ep+p)
 			}
 		}
-		result = util.DedupeRows(newPaths)
+		result = newPaths
 	}
 
 	return result
 }
 
-func FindAllPairShortestPaths(options map[string]grid.Coordinate, pad [][]string, resStore map[CoordinatePair][][]string) {
+func FindAllPairShortestPaths(options map[string]grid.Coordinate, pad [][]string, resStore map[CoordinatePair][]string) {
 	for _, v1 := range options {
 		for _, v2 := range options {
 			FindShortestPaths(pad, v1, v2)
 			resStore[CoordinatePair{
 				Start: v1,
 				End:   v2,
-			}] = util.CopyMatrix(result)
-			result = [][]string{}
+			}] = slices.Clone(result)
+			result = []string{}
 		}
 	}
 }
@@ -205,7 +207,7 @@ func FindShortestPaths(pad [][]string, start, end grid.Coordinate) {
 func findAllPaths(adjacenyList map[grid.Coordinate][]Path, currentPath []string, current, end grid.Coordinate) {
 	if current == end {
 		slices.Reverse(currentPath)
-		result = append(result, append(currentPath, "A"))
+		result = append(result, strings.Join(append(currentPath, "A"), ""))
 		return
 	}
 
