@@ -21,8 +21,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("A1: ", Q1(inp))
-	fmt.Println("A2: ", Q2(inp))
+	util.PrintMatrix(inp)
+
+	a1, a2 := Q(inp)
+
+	fmt.Printf("A1:%4d | A2:%4d\n", a1, a2)
 }
 
 type region struct {
@@ -32,7 +35,11 @@ type region struct {
 	sides     int
 }
 
-func Q1(garden [][]string) int {
+func (r region) String() string {
+	return fmt.Sprintf("Name: %v | Area: %3d | Perimeter: %3d | Sides: %3d", r.name, r.area, r.perimeter, r.sides)
+}
+
+func Q(garden [][]string) (int, int) {
 	regions := []region{}
 	seen := map[grid.Coordinate]bool{}
 
@@ -45,20 +52,22 @@ func Q1(garden [][]string) int {
 		}
 	}
 
-	result := 0
+	result1 := 0
+	result2 := 0
 	for _, region := range regions {
-		// fmt.Println(region)
-		result += region.area * region.perimeter
+		fmt.Println(region)
+		result1 += region.area * region.perimeter
+		result2 += region.area * region.sides
 	}
 
-	return result
+	return result1, result2
 }
 
 var cornerPairs = [][]grid.Direction{
-	{grid.DirectionNorth, grid.DirectionEast, grid.DirectionNorthEast},
-	{grid.DirectionEast, grid.DirectionSouth, grid.DirectionSouthEast},
-	{grid.DirectionSouth, grid.DirectionWest, grid.DirectionSouthWest},
-	{grid.DirectionWest, grid.DirectionNorth, grid.DirectionNorthWest},
+	{grid.DirectionNorth, grid.DirectionEast},
+	{grid.DirectionEast, grid.DirectionSouth},
+	{grid.DirectionSouth, grid.DirectionWest},
+	{grid.DirectionWest, grid.DirectionNorth},
 }
 
 func exploreRegion(garden [][]string, start grid.Coordinate, seen map[grid.Coordinate]bool) region {
@@ -87,24 +96,24 @@ func exploreRegion(garden [][]string, start grid.Coordinate, seen map[grid.Coord
 			}
 		}
 
-		for _, prs := range cornerPairs {
-			d1, d2, d3 := grid.DIRECTIONS[prs[0]], grid.DIRECTIONS[prs[1]], grid.DIRECTIONS[prs[2]]
-			n1, n2, n3 := current.Add(d1), current.Add(d2), current.Add(d3)
-			v1, v2, v3, cv := "", "", "", garden[current.X][current.Y]
-			if inBound(garden, n1) {
-				v1 = garden[n1.X][n1.Y]
-			}
-			if inBound(garden, n2) {
-				v2 = garden[n2.X][n2.Y]
-			}
-			if inBound(garden, n3) {
-				v2 = garden[n3.X][n3.Y]
-			}
-			if cv == v1 && cv == v2 && cv != v3 {
-				fmt.Println(name, n1, n2, "yes")
+		for _, cp := range cornerPairs {
+			x, y := grid.DIRECTIONS[cp[0]], grid.DIRECTIONS[cp[1]]
+			z := grid.NewCoordinate(x.X+y.X, x.Y+y.Y)
+			nx, ny, nz := current.Add(x), current.Add(y), current.Add(z)
+
+			if inBound(garden, nx) && inBound(garden, ny) {
+				if garden[current.X][current.Y] != garden[nx.X][nx.Y] && garden[current.X][current.Y] != garden[ny.X][ny.Y] {
+					sides2++
+				} else if garden[current.X][current.Y] == garden[nx.X][nx.Y] && garden[current.X][current.Y] == garden[ny.X][ny.Y] && inBound(garden, nz) {
+					if garden[current.X][current.Y] != garden[nz.X][nz.Y] {
+						sides2++
+					}
+				}
+			} else if !inBound(garden, nx) && !inBound(garden, ny) {
 				sides2++
-			} else if cv != v1 && cv != v2 {
-				fmt.Println(name, n1, n2, "no")
+			} else if inBound(garden, nx) && garden[current.X][current.Y] != garden[nx.X][nx.Y] {
+				sides2++
+			} else if inBound(garden, ny) && garden[current.X][current.Y] != garden[ny.X][ny.Y] {
 				sides2++
 			}
 		}
@@ -118,26 +127,4 @@ func exploreRegion(garden [][]string, start grid.Coordinate, seen map[grid.Coord
 
 func inBound(garden [][]string, c grid.Coordinate) bool {
 	return c.X >= 0 && c.X < len(garden) && c.Y >= 0 && c.Y < len(garden[c.X])
-}
-
-func Q2(garden [][]string) int {
-	regions := []region{}
-	seen := map[grid.Coordinate]bool{}
-
-	for i := range len(garden) {
-		for j := range len(garden[i]) {
-			c := grid.NewCoordinate(i, j)
-			if _, found := seen[c]; !found {
-				regions = append(regions, exploreRegion(garden, c, seen))
-			}
-		}
-	}
-
-	result := 0
-	for _, region := range regions {
-		fmt.Println(region)
-		result += region.area * region.sides
-	}
-
-	return result
 }
