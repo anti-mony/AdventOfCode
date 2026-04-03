@@ -23,6 +23,8 @@ import (
 	"advent.of.code/util"
 )
 
+type InputType []string
+
 func main() {
 	filename := "input.small.txt"
 	if len(os.Args) > 1 {
@@ -34,10 +36,19 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(inp)
+	fmt.Println("Q1: ", Q1(inp))
+	fmt.Println("Q2: ", Q2(inp))
 }
 
-func parseInput(filename string) ([]string, error) {
+func Q1(inp InputType) int {
+	return -1
+}
+
+func Q2(inp InputType) int {
+	return -1
+}
+
+func parseInput(filename string) (InputType, error) {
 	lines, err := util.GetFileAsListOfStrings(filename)
 	if err != nil {
 		return nil, err
