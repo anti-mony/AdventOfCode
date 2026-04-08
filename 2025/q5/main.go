@@ -1,9 +1,11 @@
 package main
 
 import (
+	"cmp"
 	"fmt"
 	"log"
 	"os"
+	"slices"
 	"strings"
 
 	"advent.of.code/util"
@@ -51,7 +53,26 @@ func Q1(inp Input) int {
 }
 
 func Q2(inp Input) int {
-	return -1
+	ranges := inp.FreshRanges
+	slices.SortFunc(ranges, func(x, y []int) int { return cmp.Compare(x[0], y[0]) })
+	current := ranges[0]
+	merged := make([][]int, 0, len(ranges))
+	for _, interval := range ranges[1:] {
+		if current[1] < interval[0] {
+			merged = append(merged, current)
+			current = interval
+		} else {
+			current[1] = max(current[1], interval[1])
+		}
+	}
+	merged = append(merged, current)
+
+	result := 0
+	for _, r := range merged {
+		result += r[1] - r[0] + 1
+	}
+
+	return result
 }
 
 func parseInput(filename string) (Input, error) {
