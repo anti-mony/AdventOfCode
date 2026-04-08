@@ -23,6 +23,19 @@ const (
 	DirectionSouthWest
 )
 
+func Directions() []Direction {
+	return []Direction{
+		DirectionNorth,
+		DirectionNorthEast,
+		DirectionEast,
+		DirectionSouthEast,
+		DirectionSouth,
+		DirectionSouthWest,
+		DirectionWest,
+		DirectionNorthWest,
+	}
+}
+
 func (d Direction) Reverse() Direction {
 	switch d {
 	case DirectionEast:
@@ -183,6 +196,12 @@ func NewIntGridFromStringSlice(input []string) (*Grid[int], error) {
 		}
 	}
 	return grid, nil
+}
+
+func NewStringGridFromMatrix[T cmp.Ordered](input [][]T) (*Grid[T], error) {
+	return &Grid[T]{
+		store: input,
+	}, nil
 }
 
 func (g *Grid[T]) Dimensions() (int, int) {
