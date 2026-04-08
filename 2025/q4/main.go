@@ -65,7 +65,44 @@ func Q1(inp InputType) int {
 }
 
 func Q2(inp InputType) int {
-	return -1
+	input, err := grid.NewStringGridFromMatrix[string](inp)
+	if err != nil {
+		panic(err)
+	}
+	result := 0
+	dirs := grid.Directions()
+	rows, cols := input.Dimensions()
+	start := true
+	foundMoveable := false
+
+	for start || foundMoveable {
+		start = false
+		foundMoveable = false
+		for i := range rows {
+			for j := range cols {
+				c := grid.NewCoordinate(i, j)
+				if input.ValueAt(c) != _paperRoll {
+					continue
+				}
+				rollCount := 0
+				for _, d := range dirs {
+					n := c.MoveTowards(d)
+					if input.InBound(n) {
+						if input.ValueAt(n) == _paperRoll {
+							rollCount++
+						}
+					}
+				}
+				if rollCount < 4 {
+					input.SetValueAt(c, "x")
+					result += 1
+					foundMoveable = true
+				}
+			}
+		}
+	}
+
+	return result
 }
 
 func parseInput(filename string) (InputType, error) {
