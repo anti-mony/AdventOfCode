@@ -7,8 +7,23 @@ import (
 // PrintMatrix prints a 2D array
 func PrintMatrix[T any](in [][]T) {
 	fmt.Println()
-	for i := 0; i < len(in); i++ {
-		for j := 0; j < len(in[i]); j++ {
+	for i := -1; i < len(in); i++ {
+		if i == -1 {
+			for j := -1; j < len(in[0]); j++ {
+				if j == -1 {
+					fmt.Printf("%3v", "X")
+					continue
+				}
+				fmt.Printf("%3v", j)
+			}
+			fmt.Println()
+			continue
+		}
+		for j := -1; j < len(in[i]); j++ {
+			if j == -1 {
+				fmt.Printf("%3v", i)
+				continue
+			}
 			fmt.Printf("%3v", in[i][j])
 		}
 		fmt.Println()
