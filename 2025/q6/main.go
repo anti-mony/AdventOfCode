@@ -33,7 +33,7 @@ func main() {
 	// }
 
 	fmt.Println("Q1: ", Q1(inp))
-	fmt.Println("Q2: ", Q2(inp))
+	fmt.Println("Q2: ", Q2(filename))
 }
 
 func Q1(inp InputType) int {
@@ -56,8 +56,80 @@ func Q1(inp InputType) int {
 	return result
 }
 
-func Q2(inp InputType) int {
-	return -1
+func Q2(filename string) int {
+	lines, _ := util.GetFileAsListOfStrings(filename)
+	opsLine := util.StringToCharSlice(lines[len(lines)-1])
+	prev := 0
+	i := 0
+	result := 0
+	for i = 1; i < len(opsLine); i++ {
+		if opsLine[i] != "*" && opsLine[i] != "+" {
+			continue
+		}
+
+		vals := parseColumn(lines, prev, i-1)
+		localRes, _ := strconv.Atoi(vals[0])
+		for _, v := range vals[1:] {
+			vv, _ := strconv.Atoi(v)
+			if opsLine[prev] == "+" {
+				localRes += vv
+			} else {
+				localRes *= vv
+			}
+		}
+		// fmt.Println("-->", vals, ">>", localRes)
+		result += localRes
+		prev = i
+	}
+
+	vals := parseColumn(lines, prev, len(opsLine))
+	localRes, _ := strconv.Atoi(vals[0])
+	for _, v := range vals[1:] {
+		vv, _ := strconv.Atoi(v)
+		if opsLine[prev] == "+" {
+			localRes += vv
+		} else {
+			localRes *= vv
+		}
+	}
+	// fmt.Println("-->", vals, ">>", localRes)
+
+	result += localRes
+
+	return result
+}
+
+func parseColumn(lines []string, start, end int) []string {
+	tvals := [][]string{}
+	maxLen := 0
+	for _, line := range lines[:len(lines)-1] {
+		w := line[start:end]
+		tvals = append(tvals, util.StringToCharSlice(w))
+		maxLen = max(maxLen, len(w))
+	}
+
+	vals := []string{}
+	for i := range maxLen {
+		num := ""
+		for _, v := range tvals {
+			num += v[i]
+		}
+		if num != "" {
+			vals = append(vals, strings.TrimSpace(num))
+		}
+	}
+
+	return vals
+}
+
+func getNums(vals []string) []string {
+	result := []string{}
+	maxI := 0
+	for _, v := range vals {
+		maxI = max(maxI, len(v))
+	}
+
+	return result
 }
 
 func parseInput(filename string) (InputType, error) {
