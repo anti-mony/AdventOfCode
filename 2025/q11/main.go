@@ -27,24 +27,27 @@ func main() {
 }
 
 func Q1(inp InputType) int {
-	paths := 0
+	var recurse func(start string, path string) int
 
-	var recurse func(start string, path string)
+	seen := make(map[string]int)
 
-	recurse = func(start string, path string) {
+	recurse = func(start string, path string) int {
+		if v, found := seen[start]; found {
+			return v
+		}
 		if start == "out" {
-			paths++
-			return
+			return 1
 		}
 
+		res := 0
 		for _, nxt := range inp[start] {
-			recurse(nxt, path+","+nxt)
+			res += recurse(nxt, path+","+nxt)
 		}
+		seen[start] = res
+		return res
 	}
 
-	recurse("you", "you")
-
-	return paths
+	return recurse("you", "you")
 }
 
 func Q2(inp InputType) int {
