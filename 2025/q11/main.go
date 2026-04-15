@@ -32,8 +32,7 @@ func Q1(inp InputType) int {
 	var recurse func(start string, path string)
 
 	recurse = func(start string, path string) {
-		if strings.HasSuffix(path, "out") {
-			// fmt.Println(path)
+		if start == "out" {
 			paths++
 			return
 		}
@@ -49,26 +48,42 @@ func Q1(inp InputType) int {
 }
 
 func Q2(inp InputType) int {
-	paths := 0
+	var recurse func(start string, seenFft bool, seenDac bool) int
 
-	var recurse func(start string, path string)
-
-	recurse = func(start string, path string) {
-		if strings.HasSuffix(path, "out") {
-			if strings.Contains(path, "fft") && strings.Contains(path, "dac") {
-				paths++
-			}
-			return
-		}
-
-		for _, nxt := range inp[start] {
-			recurse(nxt, path+","+nxt)
-		}
+	type key struct {
+		node    string
+		seenFft bool
+		seenDac bool
 	}
 
-	recurse("svr", "svr")
+	seen := map[key]int{}
 
-	return paths
+	recurse = func(start string, seenFft bool, seenDac bool) int {
+		k := key{start, seenFft, seenDac}
+		if v, found := seen[k]; found {
+			return v
+		}
+
+		if start == "out" {
+			if seenFft && seenDac {
+				return 1
+			}
+			return 0
+		}
+
+		res := 0
+		for _, nxt := range inp[start] {
+			res += recurse(
+				nxt,
+				seenFft || nxt == "fft",
+				seenDac || nxt == "dac",
+			)
+		}
+		seen[k] = res
+		return res
+	}
+
+	return recurse("svr", false, false)
 }
 
 func parseInput(filename string) (InputType, error) {
