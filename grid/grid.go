@@ -268,3 +268,15 @@ func (g *Grid[T]) Clone() *Grid[T] {
 		store: util.CopyMatrix(g.store),
 	}
 }
+
+func GetFilled[T any](input [][]T, isFilled func(in T) bool) []Coordinate {
+	var result []Coordinate
+	for i := 0; i < len(input); i++ {
+		for j := 0; j < len(input[i]); j++ {
+			if isFilled(input[i][j]) {
+				result = append(result, NewCoordinate(i, j))
+			}
+		}
+	}
+	return result
+}

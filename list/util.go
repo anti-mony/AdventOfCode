@@ -49,3 +49,13 @@ func Sum[T cmp.Ordered](l []T) T {
 
 	return r
 }
+
+func AllFunc[T any](in []T, isOkay func(in T) bool) bool {
+	for _, v := range in {
+		if !isOkay(v) {
+			return false
+		}
+	}
+
+	return true
+}
